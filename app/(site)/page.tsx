@@ -67,7 +67,7 @@ export default async function HomePage({
       <Hero />
       <GithubActivityGraph year={year} />
       <TechMarquee />
-      <ExperienceTimeline />
+      <ExperienceTimeline limit={2} />
       <CapabilitiesShowcase />
       <FlagRow />
       <section className="max-w-4xl mx-auto w-full px-6 py-12">

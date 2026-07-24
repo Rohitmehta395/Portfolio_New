@@ -54,10 +54,13 @@ export function ExperienceTimelineAnimated({ experiences }: ExperienceTimelineAn
   }
 
   return (
-    <div ref={containerRef} className="flex flex-col gap-8">
+    <div ref={containerRef} className="flex flex-col bg-[#262626] text-white rounded-[2rem] px-6 md:px-12 py-2 shadow-2xl">
       {experiences.map((exp, idx) => (
-        <div key={exp._id} className="experience-card-item opacity-0">
+        <div key={exp._id} className="experience-card-item opacity-0 flex flex-col">
           <ExperienceCard experience={exp} index={idx} />
+          {idx < experiences.length - 1 && (
+            <hr className="border-[#3a3a3a] w-full" />
+          )}
         </div>
       ))}
     </div>

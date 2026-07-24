@@ -7,9 +7,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
 
   // 1. Static Routes
-  // Note: /journey and /experience were omitted as they are not actual independent routes 
-  // in this application (they are anchor links or sections on the homepage). 
-  // Including them would result in 404s for crawlers.
+  // Note: /journey is omitted as it is not an actual independent route 
+  // (it is an anchor link or section on the homepage). 
+  // Including it would result in a 404 for crawlers.
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -19,6 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/works`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/experience`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
