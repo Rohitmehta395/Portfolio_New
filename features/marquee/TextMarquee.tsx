@@ -128,8 +128,7 @@ export const TextMarquee = ({
 
   return (
     <section
-      className="w-full overflow-hidden py-2"
-      style={{ background: "#ffffff" }}
+      className="w-full overflow-hidden py-2 bg-background"
     >
       <svg
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
@@ -168,7 +167,8 @@ export const TextMarquee = ({
         {ready && (
           <text
             xmlSpace="preserve"
-            fill="#000000"
+            fill="currentColor"
+            className="text-foreground"
             style={{
               fontFamily: "inherit",
               fontWeight: 900,
