@@ -4,6 +4,7 @@ import { siteConfig } from '@/config/site.config';
 import { Hero } from '@/features/hero/Hero';
 import { GithubActivityGraph } from '@/features/github-activity/GithubActivityGraph';
 import { TechMarquee } from '@/features/marquee/TechMarquee';
+import { TextMarquee } from '@/features/marquee/TextMarquee';
 import { ExperienceTimeline } from '@/features/experience/ExperienceTimeline';
 import { CapabilitiesShowcase } from '@/features/capabilities/CapabilitiesShowcase';
 import { FlagRow } from '@/features/global-reach/FlagRow';
@@ -59,7 +60,7 @@ export default async function HomePage({
   };
 
   return (
-    <main className="flex flex-col gap-12">
+    <main className="flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -68,6 +69,7 @@ export default async function HomePage({
       <GithubActivityGraph year={year} />
       <TechMarquee />
       <ExperienceTimeline limit={2} />
+      <TextMarquee />
       <CapabilitiesShowcase />
       <FlagRow />
       <section className="max-w-4xl mx-auto w-full px-6 py-12">
