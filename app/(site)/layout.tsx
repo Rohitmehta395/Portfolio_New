@@ -1,0 +1,40 @@
+import React from 'react';
+import { Inter, Outfit } from 'next/font/google';
+import LenisProvider from '@/components/providers/LenisProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { Navbar } from '@/features/navbar/Navbar';
+import { Footer } from '@/features/footer/Footer';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <LenisProvider>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <div className={`${inter.variable} ${outfit.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background flex flex-col transition-colors duration-300`}>
+          <Navbar />
+
+          <div className="relative flex-1 flex flex-col">
+            {children}
+          </div>
+
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </LenisProvider>
+  );
+}
