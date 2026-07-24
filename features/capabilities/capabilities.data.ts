@@ -1,7 +1,8 @@
 export interface CapabilityItem {
   id: string;
   number: string;
-  category: string;
+  pillCategory: string;
+  subheading: string;
   title: string;
   ghostTitle: string;
   description: string;
@@ -18,49 +19,53 @@ export const CAPABILITIES_DATA: CapabilityItem[] = [
   {
     id: 'enterprise-software',
     number: '01',
-    category: 'Full-Stack Systems',
+    pillCategory: 'Enterprise Development',
+    subheading: 'SCALABILITY & ARCHITECTURE',
     title: 'Enterprise Software',
     ghostTitle: 'ENTERPRISE',
     description:
-      'Designing and building scalable, high-concurrency microservices, robust REST/GraphQL APIs, and mission-critical cloud backends engineered for performance and high availability.',
-    tags: ['Next.js 15', 'TypeScript', 'Node.js', 'MongoDB', 'Docker', 'GraphQL'],
+      "I build software that doesn't flinch under real traffic dashboards, internal tools, and systems that people actually depend on, not just demo well. Less about looking clean in a screenshot, more about staying solid when a few thousand people hit it at once.",
+    tags: ['Scalable', 'Secure', 'High-Performance', 'Reliable'],
     imageSrc:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="%23171717"/><text x="400" y="250" font-family="sans-serif" font-size="26" fill="%23737373" text-anchor="middle">ENTERPRISE SOFTWARE PLATFORM</text></svg>',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
   },
   {
     id: 'web-design-app',
     number: '02',
-    category: 'Interactive Web',
+    pillCategory: 'Web Development',
+    subheading: 'WEB PRESENCE & INTERFACE',
     title: 'Website Design & Application',
     ghostTitle: 'INTERACTIVE',
     description:
-      'Crafting fluid, responsive web applications with kinetic typography, modern design systems, and seamless GSAP/Lenis scroll animations that deliver exceptional user engagement.',
-    tags: ['React 19', 'Tailwind CSS v4', 'GSAP', 'Lenis', 'Framer Motion', 'SEO'],
+      'Your website is the first conversation you have with a stranger. I make sure it says the right thing in half a second. Fast, intentional, and built to hold up past the first impression.',
+    tags: ['Intentional', 'Fast', 'Responsive', 'Memorable'],
     imageSrc:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="%2318181b"/><text x="400" y="250" font-family="sans-serif" font-size="26" fill="%23a1a1aa" text-anchor="middle">KINETIC WEB EXPERIENCE</text></svg>',
+      'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop',
   },
   {
     id: 'mobile-app',
     number: '03',
-    category: 'Cross-Platform Mobile',
+    pillCategory: 'App Development',
+    subheading: 'ON DEVICE, BUILT TO LAST',
     title: 'Mobile Application',
     ghostTitle: 'MOBILE',
     description:
-      'Developing native-feeling iOS and Android mobile applications built with Flutter and React Native, delivering crisp 60fps performance, offline synchronization, and natural touch gestures.',
-    tags: ['Flutter', 'React Native', 'Dart', 'Mobile UX', 'State Management'],
+      "Apps people open every day, not once and forget. I care about the small stuff most devs skip. the notification that lands right, the tap that feels instant, the screen that doesn't jank when the network's bad.",
+    tags: ['Native Feel', 'Smooth', 'Offline-Ready', 'Instant'],
     imageSrc:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="%2309090b"/><text x="400" y="250" font-family="sans-serif" font-size="26" fill="%2371717a" text-anchor="middle">CROSS-PLATFORM MOBILE ENGINE</text></svg>',
+      'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop',
   },
   {
     id: 'ux-product-research',
     number: '04',
-    category: 'Product & Architecture',
+    pillCategory: 'Product Research',
+    subheading: 'RESEARCH BEFORE PIXELS',
     title: 'UX & Product Excellence Research',
     ghostTitle: 'EXCELLENCE',
     description:
-      'Conducting technical architecture reviews, web accessibility audits, design system engineering, and user interface research to turn complex requirements into refined software products.',
-    tags: ['Design Systems', 'Accessibility (a11y)', 'System Architecture', 'UI Audit'],
+      "Before I design a single screen, I want to know why someone would even open it. Good UX isn't decoration. it's the difference between a product people use once and one they come back to.",
+    tags: ['Insight-Driven', 'User-First', 'Iterative', 'Purposeful'],
     imageSrc:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="%2327272a"/><text x="400" y="250" font-family="sans-serif" font-size="26" fill="%23e4e4e7" text-anchor="middle">PRODUCT RESEARCH & DESIGN</text></svg>',
+      'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2070&auto=format&fit=crop',
   },
 ];
