@@ -30,7 +30,6 @@ const TechnologySchema = new Schema<ITechnology>(
   }
 );
 
-TechnologySchema.index({ name: 1 }, { unique: true });
 
 export const Technology: Model<ITechnology> =
   mongoose.models.Technology || mongoose.model<ITechnology>('Technology', TechnologySchema);

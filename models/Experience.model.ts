@@ -48,7 +48,6 @@ const ExperienceSchema = new Schema<IExperience>(
   }
 );
 
-ExperienceSchema.index({ order: 1 });
 
 export const Experience: Model<IExperience> =
   mongoose.models.Experience || mongoose.model<IExperience>('Experience', ExperienceSchema);
