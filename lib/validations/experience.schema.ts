@@ -63,7 +63,7 @@ export const experienceZodSchema = z.object({
   companyLogo: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   roles: z.array(experienceRoleSchema).min(1, 'At least one role is required'),
   tags: z.array(z.string()),
-  order: z.number().default(0),
+  order: z.number(),
 });
 
 export type ExperienceFormValues = z.infer<typeof experienceZodSchema>;

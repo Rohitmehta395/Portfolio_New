@@ -47,7 +47,7 @@ export async function createSkill(formData: any) {
     }
 
     // Convert empty string to undefined for proficiency to allow valid insertion
-    const dataToSave = { ...parsed.data };
+    const dataToSave: any = { ...parsed.data };
     if (dataToSave.proficiency === '') {
       delete dataToSave.proficiency;
     }
@@ -79,9 +79,9 @@ export async function updateSkill(id: string, formData: any) {
     }
 
     // Convert empty string to undefined for proficiency
-    const dataToSave = { ...parsed.data };
+    const dataToSave: any = { ...parsed.data };
     if (dataToSave.proficiency === '') {
-      (dataToSave as any).$unset = { proficiency: 1 };
+      dataToSave.$unset = { proficiency: 1 };
       delete dataToSave.proficiency;
     }
 
@@ -90,12 +90,12 @@ export async function updateSkill(id: string, formData: any) {
       return { success: false, error: 'Skill name is already in use by another entry' };
     }
 
-    const updatePayload = (dataToSave as any).$unset 
-      ? { $set: dataToSave, $unset: (dataToSave as any).$unset }
+    const updatePayload = dataToSave.$unset 
+      ? { $set: dataToSave, $unset: dataToSave.$unset }
       : dataToSave;
 
     // Remove $unset from root of dataToSave before $set
-    if ((dataToSave as any).$unset) {
+    if (dataToSave.$unset) {
        delete dataToSave.$unset;
     }
 
