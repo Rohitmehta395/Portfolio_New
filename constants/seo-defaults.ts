@@ -9,7 +9,7 @@ export interface SeoDefaults {
 }
 
 export const SEO_DEFAULTS: SeoDefaults = {
-  title: 'Rohit — Creative Software Developer Portfolio',
+  title: 'Rohit | Creative Software Developer Portfolio',
   description:
     'Full-stack and creative software developer specializing in high-performance web applications, dynamic interactive user interfaces, and robust server architectures.',
   ogImage: '/images/og-default.png',

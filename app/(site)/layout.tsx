@@ -28,7 +28,7 @@ export default function SiteLayout({
         <div className={`${inter.variable} ${outfit.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background flex flex-col transition-colors duration-300`}>
           <Navbar />
 
-          <div className="relative flex-1 flex flex-col">
+          <div id="main-content" className="relative flex-1 flex flex-col">
             {children}
           </div>
 

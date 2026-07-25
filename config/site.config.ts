@@ -8,21 +8,21 @@ export interface SiteConfig {
   links: {
     github: string;
     linkedin: string;
-    twitter: string;
+    instagram: string;
   };
 }
 
 export const siteConfig: SiteConfig = {
-  name: 'Developer Portfolio',
-  author: 'Rohit',
-  role: 'Creative Software Developer',
+  name: "Developer Portfolio",
+  author: "Rohit",
+  role: "Creative Software Developer",
   description:
-    'Portfolio of Rohit, a Creative Software Developer crafting premium, animated digital experiences.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  ogImage: '/images/og-default.png',
+    "Portfolio of Rohit, a Creative Software Developer crafting premium, animated digital experiences.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  ogImage: "/images/og-default.png",
   links: {
-    github: 'https://github.com/placeholder',
-    linkedin: 'https://linkedin.com/in/placeholder',
-    twitter: 'https://twitter.com/placeholder',
+    github: "https://github.com/Rohitmehta395",
+    linkedin: "https://www.linkedin.com/in/rohitmehta395/",
+    instagram: "https://www.instagram.com/rohit_._mehta/",
   },
 };
