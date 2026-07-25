@@ -7,8 +7,8 @@ import { TechMarquee } from '@/features/marquee/TechMarquee';
 import { TextMarquee } from '@/features/marquee/TextMarquee';
 import { ExperienceTimeline } from '@/features/experience/ExperienceTimeline';
 import { CapabilitiesShowcase } from '@/features/capabilities/CapabilitiesShowcase';
-import { FlagRow } from '@/features/global-reach/FlagRow';
-import { ContactForm } from '@/features/contact/ContactForm';
+// import { FlagRow } from '@/features/global-reach/FlagRow';
+import { Contact2 } from '@/components/ui/contact-2';
 
 export const metadata: Metadata = {
   title: {
@@ -71,13 +71,8 @@ export default async function HomePage({
       <ExperienceTimeline limit={2} />
       <TextMarquee />
       <CapabilitiesShowcase />
-      <FlagRow />
-      <section className="max-w-4xl mx-auto w-full px-6 py-12">
-        <h2 className="text-2xl font-bold font-display text-foreground mb-6 text-center">
-          Get in Touch (Phase 15 Test Render)
-        </h2>
-        <ContactForm />
-      </section>
+      {/* <FlagRow /> */}
+      <Contact2 />
     </main>
   );
 }
