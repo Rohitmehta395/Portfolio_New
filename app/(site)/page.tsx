@@ -55,7 +55,7 @@ export default async function HomePage({
     sameAs: [
       siteConfig.links.github,
       siteConfig.links.linkedin,
-      siteConfig.links.twitter,
+      siteConfig.links.instagram,
     ]
   };
 
