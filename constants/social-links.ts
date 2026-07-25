@@ -7,24 +7,24 @@ export interface SocialLink {
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    platform: 'GitHub',
-    url: 'https://github.com/placeholder-username',
-    handle: '@placeholder',
+    platform: "GitHub",
+    url: "https://github.com/Rohitmehta395",
+    handle: "@Rohitmehta395",
   },
   {
-    platform: 'LinkedIn',
-    url: 'https://linkedin.com/in/placeholder-username',
-    handle: 'in/placeholder',
+    platform: "LinkedIn",
+    url: "https://www.linkedin.com/in/rohitmehta395/",
+    handle: "in/rohitmehta395",
   },
   {
-    platform: 'Twitter',
-    url: 'https://twitter.com/placeholder-username',
-    handle: '@placeholder',
+    platform: "Instagram",
+    url: "https://www.instagram.com/rohit_._mehta/",
+    handle: "@rohit_._mehta",
   },
   {
-    platform: 'Email',
-    url: 'mailto:rohit@example.com',
-    handle: 'rohit@example.com',
+    platform: "Email",
+    url: "mailto:rohitmehtaddn@gmail.com",
+    handle: "rohitmehtaddn@gmail.com",
   },
 ];
 
