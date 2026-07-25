@@ -158,13 +158,13 @@ export function CapabilitiesShowcase() {
   }, []);
 
   return (
-    <section className="w-full bg-white select-none">
+    <section className="w-full bg-white dark:bg-black select-none transition-colors duration-300">
       {/* 1. MOBILE LAYOUT */}
       <div className="block md:hidden px-6 py-16">
         <div className="flex flex-col gap-3 mb-10 border-b border-neutral-200 pb-6">
-          <h2 className="font-display text-4xl font-extrabold tracking-tight text-black flex items-center gap-3">
+          <h2 className="font-display text-4xl font-extrabold tracking-tight text-black dark:text-white flex items-center gap-3 transition-colors">
             What{" "}
-            <span className="font-cursive text-indigo-400 font-light lowercase text-5xl -mt-2">
+            <span className="font-cursive text-indigo-500 dark:text-[#b19df7] font-light lowercase text-5xl -mt-2 transition-colors">
               I do
             </span>
           </h2>
@@ -174,10 +174,10 @@ export function CapabilitiesShowcase() {
           {CAPABILITIES_DATA.map((cap) => (
             <div key={cap.id} className="flex flex-col gap-6">
               <div className="flex flex-col gap-4">
-                <span className="text-8xl font-bold tracking-tighter text-black leading-none">
+                <span className="text-8xl font-bold tracking-tighter text-black dark:text-white leading-none transition-colors">
                   {cap.number}
                 </span>
-                <span className="bg-black text-white px-5 py-2 rounded-full text-sm font-semibold w-fit">
+                <span className="bg-black text-white dark:bg-white dark:text-black px-5 py-2 rounded-full text-sm font-semibold w-fit transition-colors">
                   {cap.pillCategory}
                 </span>
               </div>
@@ -187,7 +187,7 @@ export function CapabilitiesShowcase() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <button className="border-2 border-black rounded-full px-6 py-3 text-sm font-bold uppercase flex items-center gap-2 hover:bg-black hover:text-white transition-colors text-black">
+          <button className="border-2 border-black dark:border-white rounded-full px-6 py-3 text-sm font-bold uppercase flex items-center gap-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors text-black dark:text-white">
             View All Works
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -207,10 +207,9 @@ export function CapabilitiesShowcase() {
         </div>
       </div>
 
-      {/* 2. DESKTOP LAYOUT (GSAP ScrollTrigger Pinned Scrub Sequence >= 768px) */}
       <div
         ref={pinSectionRef}
-        className="hidden md:flex flex-row w-full h-screen relative bg-white overflow-hidden text-black items-center"
+        className="hidden md:flex flex-row w-full h-screen relative bg-white dark:bg-black overflow-hidden text-black dark:text-white items-center transition-colors duration-300"
       >
         {/* Left Side Container (40%) */}
         <div className="w-[40%] flex flex-col justify-between pl-12 lg:pl-20 pr-8 h-[80vh] min-h-[600px] relative z-10">
@@ -224,7 +223,7 @@ export function CapabilitiesShowcase() {
                 key={`num-${cap.id}`}
                 className="capability-number-slide absolute top-0 left-0 w-full h-full flex items-start"
               >
-                <span className="text-[12rem] lg:text-[14rem] xl:text-[18rem] leading-[0.8] font-semibold tracking-tighter text-black">
+                <span className="text-[12rem] lg:text-[14rem] xl:text-[18rem] leading-[0.8] font-semibold tracking-tighter text-black dark:text-white transition-colors">
                   {cap.number}
                 </span>
               </div>
@@ -233,7 +232,7 @@ export function CapabilitiesShowcase() {
 
           {/* Bottom Left: What I Do */}
           <div className="flex flex-col gap-6 w-full">
-            <h2 className="text-6xl lg:text-7xl xl:text-8xl font-bold flex items-center gap-4 text-black">
+            <h2 className="text-6xl lg:text-7xl xl:text-8xl font-bold flex items-center gap-4 text-black dark:text-white transition-colors">
               What
               <span
                 className="font-cursive text-[#b19df7] font-light text-7xl lg:text-8xl xl:text-9xl lowercase"
@@ -244,14 +243,14 @@ export function CapabilitiesShowcase() {
             </h2>
 
             <div
-              className="relative h-[48px] bg-black rounded-full shadow-md overflow-hidden"
+              className="relative h-[48px] bg-black dark:bg-white rounded-full shadow-md overflow-hidden transition-colors"
               ref={pillsContainerRef}
             >
               <div className="absolute top-0 left-0 flex flex-col capability-pill-track">
                 {CAPABILITIES_DATA.map((cap) => (
                   <div
                     key={`pill-${cap.id}`}
-                    className="capability-pill-item h-[48px] px-6 flex items-center whitespace-nowrap text-white text-base lg:text-lg font-semibold w-max"
+                    className="capability-pill-item h-[48px] px-6 flex items-center whitespace-nowrap text-white dark:text-black text-base lg:text-lg font-semibold w-max transition-colors"
                   >
                     {cap.pillCategory}
                   </div>
@@ -260,7 +259,7 @@ export function CapabilitiesShowcase() {
             </div>
 
             <div className="mt-4">
-              <button className="border-2 border-black rounded-full px-6 py-2.5 text-xs lg:text-sm font-bold uppercase flex items-center gap-2 hover:bg-black hover:text-white transition-colors text-black w-fit">
+              <button className="border-2 border-black dark:border-white rounded-full px-6 py-2.5 text-xs lg:text-sm font-bold uppercase flex items-center gap-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors text-black dark:text-white w-fit">
                 View All Works
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +282,7 @@ export function CapabilitiesShowcase() {
 
         {/* Right Side Container (60%) */}
         <div className="w-[60%] h-screen flex items-center justify-end relative z-20">
-          <div className="w-full h-[96vh] relative overflow-hidden bg-[#171717] border border-white/5 shadow-2xl rounded-r-none border-r-0 md:rounded-l-[2.5rem]" ref={cardsContainerRef}>
+          <div className="w-full h-[96vh] relative overflow-hidden bg-neutral-100 dark:bg-[#171717] border-neutral-200 dark:border-white/5 shadow-2xl rounded-r-none border-r-0 md:rounded-l-[2.5rem] transition-colors" ref={cardsContainerRef}>
             {CAPABILITIES_DATA.map((cap) => (
               <div
                 key={`card-${cap.id}`}
