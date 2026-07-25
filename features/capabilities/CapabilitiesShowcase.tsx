@@ -282,7 +282,7 @@ export function CapabilitiesShowcase() {
 
         {/* Right Side Container (60%) */}
         <div className="w-[60%] h-screen flex items-center justify-end relative z-20">
-          <div className="w-full h-[96vh] relative overflow-hidden bg-neutral-100 dark:bg-[#171717] border-neutral-200 dark:border-white/5 shadow-2xl rounded-r-none border-r-0 md:rounded-l-[2.5rem] transition-colors" ref={cardsContainerRef}>
+          <div className="w-full h-[96vh] relative overflow-hidden bg-[#171717] border-white/5 shadow-2xl rounded-r-none border-r-0 md:rounded-l-[2.5rem] transition-colors" ref={cardsContainerRef}>
             {CAPABILITIES_DATA.map((cap) => (
               <div
                 key={`card-${cap.id}`}
