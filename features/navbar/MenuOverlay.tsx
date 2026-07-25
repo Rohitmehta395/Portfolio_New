@@ -197,7 +197,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 Get In Touch
               </Link>
               <a
-                href={siteConfig.links.github}
+                href={siteConfig.links.resume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="menu-footer-item text-white hover:text-white/70 transition-colors"

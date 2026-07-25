@@ -72,7 +72,7 @@ export function Footer() {
                 </button>
               </div>
               <a
-                href={siteConfig.links.github}
+                href={siteConfig.links.resume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 text-sm font-bold tracking-[0.2em] hover:text-neutral-300 transition-colors uppercase inline-flex items-center gap-2"

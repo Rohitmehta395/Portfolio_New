@@ -9,6 +9,7 @@ export interface SiteConfig {
     github: string;
     linkedin: string;
     instagram: string;
+    resume: string;
   };
 }
 
@@ -24,5 +25,7 @@ export const siteConfig: SiteConfig = {
     github: "https://github.com/Rohitmehta395",
     linkedin: "https://www.linkedin.com/in/rohitmehta395/",
     instagram: "https://www.instagram.com/rohit_._mehta/",
+    resume:
+      "https://drive.google.com/file/d/1MHskqKPw9AW73nU0XxFcjSWzuhfxYTML/view?usp=sharing",
   },
 };
