@@ -169,9 +169,9 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
     <section className="w-full py-16 md:py-24 px-4 md:px-8 lg:px-12 max-w-[120rem] mx-auto flex flex-col gap-10">
       {/* Section Title + CTA */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full px-2">
-        <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex items-center gap-3">
+        <h2 className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap items-center gap-x-3 gap-y-0 leading-tight">
           Want to know about my{" "}
-          <span className="font-cursive text-6xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] pt-2 sm:pt-4 lowercase tracking-normal">
+          <span className="font-cursive text-6xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-4 md:mt-0 pt-2 sm:pt-4 lowercase tracking-normal">
             story?
           </span>
         </h2>
@@ -185,9 +185,9 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
       </div>
 
       {/* Dark Graph Container */}
-      <div className="relative w-full rounded-[2rem] bg-[#1a1a1a] p-6 sm:p-8 md:p-12 shadow-2xl">
+      <div className="relative w-full rounded-[2rem] bg-[#1a1a1a] p-6 sm:p-8 md:p-12 shadow-2xl mt-8 md:mt-0">
         {/* Absolute Massive Googly Eyes */}
-        <div className="absolute -bottom-8 md:-bottom-12 right-0 md:right-10 z-50">
+        <div className="absolute -top-14 md:top-auto md:-bottom-12 right-8 md:right-10 z-[70]">
           <ReactiveEyes />
         </div>
 
@@ -206,7 +206,7 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto pb-4 scrollbar-none w-full max-w-[70%]">
+             <div className="overflow-x-auto pb-4 scrollbar-none w-full max-w-full md:max-w-[70%]">
               <div className="w-full min-w-[560px] flex flex-col">
                 <MonthLabels monthGroups={monthGroups} />
                 <ContributionGrid monthGroups={monthGroups} />
