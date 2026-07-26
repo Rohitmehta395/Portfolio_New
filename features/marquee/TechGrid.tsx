@@ -118,7 +118,6 @@ export function TechGrid({ technologies }: TechGridProps) {
     <div
       ref={containerRef}
       className="relative w-full border border-border dark:border-[#2a2a2a] dark:bg-[#111111] overflow-hidden"
-      onMouseLeave={() => setOverlay(null)}
     >
       {/* ── Sliding overlay — uses foreground token so it inverts in dark mode ── */}
       <motion.div
