@@ -114,27 +114,11 @@ export function TechGrid({ technologies }: TechGridProps) {
 
   const isActive = (id: string) => overlay?.id === id;
 
-  /** Hide borderRight when this cell or its right neighbour is active */
-  const hideBorder = (rowKey: "row1" | "row2", index: number): boolean => {
-    if (!overlay || overlay.rowKey !== rowKey) return false;
-    return overlay.index === index || overlay.index === index + 1;
-  };
-
-  const getBorderClass = (
-    rowKey: "row1" | "row2",
-    i: number,
-    isLast: boolean
-  ) => {
-    if (isLast) return "";
-    return hideBorder(rowKey, i)
-      ? "border-r border-transparent"
-      : "border-r border-border dark:border-[#2a2a2a]";
-  };
-
   return (
     <div
       ref={containerRef}
-      className="relative w-full border border-border dark:border-[#2a2a2a] dark:bg-[#111111]"
+      className="relative w-full border border-border dark:border-[#2a2a2a] dark:bg-[#111111] overflow-hidden"
+      onMouseLeave={() => setOverlay(null)}
     >
       {/* ── Sliding overlay — uses foreground token so it inverts in dark mode ── */}
       <motion.div
@@ -160,24 +144,18 @@ export function TechGrid({ technologies }: TechGridProps) {
         }}
       />
 
-      {/* ── Row 1 — 4 equal cells ── */}
-      <div
-        className={row2.length > 0 ? "border-b border-border dark:border-[#2a2a2a]" : ""}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 2fr 2fr 2fr",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
+      {/* ── Row 1 — Responsive Flex Grid ── */}
+      <div className="flex flex-wrap relative z-10">
         {row1.map((tech, i) => (
           <div
             key={tech._id}
-            className={`flex flex-col items-center justify-center gap-2 transition-colors duration-150 ${getBorderClass("row1", i, i === row1.length - 1)}`}
+            className="flex-grow flex-shrink basis-[50%] md:basis-0 flex flex-col items-center justify-center gap-2 border-b border-r border-border dark:border-[#2a2a2a] transition-colors duration-150"
             style={{
               minHeight: "200px",
               padding: "2rem",
               cursor: "default",
+              marginBottom: "-1px",
+              marginRight: "-1px",
             }}
             onMouseEnter={(e) => handleEnter(e, tech._id, "row1", i)}
           >
@@ -213,24 +191,19 @@ export function TechGrid({ technologies }: TechGridProps) {
         ))}
       </div>
 
-      {/* ── Row 2 — remaining cells, equal width ── */}
+      {/* ── Row 2 — Responsive Flex Grid ── */}
       {row2.length > 0 && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${row2.length}, 1fr)`,
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
+        <div className="flex flex-wrap relative z-10">
           {row2.map((tech, i) => (
             <div
               key={tech._id}
-              className={`flex flex-col items-center justify-center gap-2 transition-colors duration-150 ${getBorderClass("row2", i, i === row2.length - 1)}`}
+              className="flex-grow flex-shrink basis-[30%] sm:basis-[20%] md:basis-0 flex flex-col items-center justify-center gap-2 border-b border-r border-border dark:border-[#2a2a2a] transition-colors duration-150"
               style={{
                 minHeight: "110px",
                 padding: "1.5rem",
                 cursor: "default",
+                marginBottom: "-1px",
+                marginRight: "-1px",
               }}
               onMouseEnter={(e) => handleEnter(e, tech._id, "row2", i)}
             >

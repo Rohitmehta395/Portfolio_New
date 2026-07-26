@@ -169,9 +169,9 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
     <section className="w-full py-16 md:py-24 px-4 md:px-8 lg:px-12 max-w-[120rem] mx-auto flex flex-col gap-10">
       {/* Section Title + CTA */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full px-2">
-        <h2 className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap items-center gap-x-3 gap-y-0 leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap items-center gap-x-3 gap-y-0 leading-tight">
           Want to know about my{" "}
-          <span className="font-cursive text-6xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-4 md:mt-0 pt-2 sm:pt-4 lowercase tracking-normal">
+          <span className="font-cursive text-5xl md:text-5xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-4 md:mt-0 pt-2 sm:pt-4 lowercase tracking-normal">
             story?
           </span>
         </h2>

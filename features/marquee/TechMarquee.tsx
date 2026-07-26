@@ -35,8 +35,8 @@ export async function TechMarquee() {
       style={{ fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif" }}
     >
       {/* Heading — mirrors "Want to know about my story?" style */}
-      <h2 className="mb-10 text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex items-center gap-3">
-        <span className="font-cursive text-6xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] pt-2 sm:pt-4 tracking-normal">
+      <h2 className="mb-10 text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap items-center gap-x-3 gap-y-0 leading-tight">
+        <span className="font-cursive text-4xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-2 md:mt-0 pt-2 sm:pt-4 tracking-normal">
           Technologies
         </span>{" "}
         I work with
