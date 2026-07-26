@@ -191,22 +191,24 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
           <ReactiveEyes />
         </div>
 
-        <div className="flex flex-col gap-10 relative z-[60] w-full">
-          <GraphHeader
-            totalContributions={result.data?.totalContributions}
-            displayYear={displayYear}
-            hasData={hasData}
-          />
+        <div className="flex flex-col gap-10 relative w-full">
+          <div className="relative z-[80] w-full">
+            <GraphHeader
+              totalContributions={result.data?.totalContributions}
+              displayYear={displayYear}
+              hasData={hasData}
+            />
+          </div>
 
           {!hasData ? (
-            <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-8 text-center">
+            <div className="relative z-[60] rounded-xl border border-neutral-800 bg-neutral-900/50 p-8 text-center">
               <p className="text-sm text-neutral-400">
                 {result.error ||
                   "Live contribution data is currently unavailable."}
               </p>
             </div>
           ) : (
-             <div className="overflow-x-auto pb-4 scrollbar-none w-full max-w-full md:max-w-[70%]">
+             <div className="relative z-[60] overflow-x-auto pb-4 scrollbar-none w-full max-w-full md:max-w-[70%]">
               <div className="w-full min-w-[560px] flex flex-col">
                 <MonthLabels monthGroups={monthGroups} />
                 <ContributionGrid monthGroups={monthGroups} />
