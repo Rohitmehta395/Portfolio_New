@@ -48,33 +48,37 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
     : experience.company;
 
   return (
-    <div className="group relative flex flex-col md:flex-row gap-6 md:gap-8 py-10 transition-all">
+    <div className="group relative flex flex-col md:flex-row gap-2 md:gap-8 py-10 transition-all">
       {/* Far Left: Index */}
-      <div className="w-12 shrink-0 pt-3">
+      <div className="w-12 shrink-0 md:pt-3">
         <span className="font-mono text-sm font-bold text-neutral-500">
           {indexFormatted}
         </span>
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
         
         {/* Left Column: Company Name & Roles (Span 6) */}
-        <div className="lg:col-span-6 flex flex-col gap-10">
-          <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight group-hover:text-neutral-200 transition-colors">
+        <div className="lg:col-span-6 flex flex-col gap-8 md:gap-10">
+          <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight group-hover:text-neutral-200 transition-colors">
             {companyDisplay}
           </h3>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 md:gap-8 relative">
             {experience.roles.map((role, rIdx) => (
               <div key={rIdx} className="relative pl-6">
+                {/* Vertical Line to next item */}
+                {rIdx < experience.roles.length - 1 && (
+                  <div className="absolute left-[3px] top-[14px] w-[1px] h-[calc(100%+14px)] md:h-[calc(100%+22px)] bg-[#444]" />
+                )}
                 {/* Bullet Marker */}
-                <div className="absolute left-0 top-[0.4rem] w-[7px] h-[7px] rounded-full border-2 border-[#555] bg-transparent" />
+                <div className="absolute left-0 top-[0.35rem] md:top-[0.4rem] w-[7px] h-[7px] rounded-full border border-[#888] bg-transparent z-10" />
                 
-                <h4 className="text-xl font-bold text-neutral-100">
+                <h4 className="text-lg md:text-xl font-bold text-neutral-100 leading-snug">
                   {role.title}
                 </h4>
-                <div className="text-sm text-neutral-500 mt-1 mb-4">
+                <div className="text-sm text-neutral-500 mt-0.5 mb-3">
                   {role.endDate ? `${formatDate(role.startDate)} — ${formatDate(role.endDate)}` : formatDate(role.startDate)}
                 </div>
                 <p className="text-sm md:text-base leading-relaxed text-neutral-400 max-w-xl">
@@ -86,13 +90,13 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
         </div>
 
         {/* Middle Column: Tags & View Button (Span 3) */}
-        <div className="lg:col-span-3 flex flex-col items-start gap-6 pt-3 lg:pt-0">
+        <div className="lg:col-span-3 flex flex-col items-start gap-6 pt-2 lg:pt-0">
           {experience.tags && experience.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {experience.tags.map((tag) => (
                 <span 
                   key={tag} 
-                  className="inline-flex items-center rounded-xs bg-[#333333] px-3 py-1.5 text-[11px] md:text-xs"
+                  className="inline-flex items-center rounded-md bg-[#2a2a2a] px-2.5 py-1.5 font-mono text-[10px] md:text-[11px] font-semibold uppercase text-neutral-300 tracking-wider"
                 >
                   {tag}
                 </span>
@@ -101,7 +105,7 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
           )}
           
           {experience.companyUrl && (
-            <div className="mt-4">
+            <div className="mt-2 md:mt-4">
               <a
                 href={experience.companyUrl}
                 target="_blank"
@@ -116,9 +120,9 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
         </div>
 
         {/* Right Column: Logo (Span 3) */}
-        <div className="lg:col-span-3 flex items-start justify-end lg:justify-start">
+        <div className="lg:col-span-3 flex items-start justify-center lg:justify-start mt-4 lg:mt-0">
           {experience.companyLogo ? (
-            <div className="w-full max-w-[240px] aspect-[4/3] bg-white rounded-2xl p-6 flex items-center justify-center overflow-hidden shrink-0 transition-transform duration-500 group-hover:scale-[1.02]">
+            <div className="w-full lg:max-w-[240px] aspect-video lg:aspect-[4/3] bg-white rounded-2xl p-6 flex items-center justify-center overflow-hidden shrink-0 transition-transform duration-500 group-hover:scale-[1.02]">
               <div className="relative w-full h-full flex items-center justify-center">
                 <Image 
                   src={experience.companyLogo}
@@ -129,7 +133,7 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
               </div>
             </div>
           ) : (
-            <div className="w-full max-w-[240px] aspect-[4/3] bg-white/5 rounded-2xl flex items-center justify-center shrink-0 border border-white/10 transition-transform duration-500 group-hover:scale-[1.02]">
+            <div className="w-full lg:max-w-[240px] aspect-video lg:aspect-[4/3] bg-white/5 rounded-2xl flex items-center justify-center shrink-0 border border-white/10 transition-transform duration-500 group-hover:scale-[1.02]">
               <span className="text-neutral-500 text-center font-semibold text-lg px-4">{experience.company}</span>
             </div>
           )}
