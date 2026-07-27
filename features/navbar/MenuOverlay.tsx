@@ -139,7 +139,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       {/* Left Panel */}
       <div
         ref={leftPanelRef}
-        className="w-full lg:w-[60%] h-[55%] lg:h-full bg-white lg:rounded-r-[40px] p-8 md:p-12 lg:p-20 flex flex-col justify-center items-center relative overflow-hidden text-black z-10 shadow-2xl"
+        className="hidden lg:flex w-full lg:w-[60%] lg:h-full bg-white lg:rounded-r-[40px] p-8 md:p-12 lg:p-20 flex-col justify-center items-center relative overflow-hidden text-black z-10 shadow-2xl"
       >
         <div className="w-full flex flex-col items-center justify-center z-10 relative">
           <div className="text-[clamp(1.25rem,2.5vw,2.5rem)] font-bold uppercase leading-tight tracking-tight flex flex-col items-center text-center gap-3 md:gap-4 w-full">
@@ -177,7 +177,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       {/* Right Panel */}
       <div
         ref={rightPanelRef}
-        className="w-full lg:w-[40%] h-[45%] lg:h-full bg-[#111111] p-8 md:p-12 lg:p-20 flex flex-col justify-center relative z-0"
+        className="w-full lg:w-[40%] h-full bg-[#111111] p-8 md:p-12 lg:p-20 flex flex-col justify-center relative z-0"
       >
         <button
           onClick={onClose}
