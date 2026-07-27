@@ -230,7 +230,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
         </div>
 
         {/* Bottom Left Links */}
-        <div className="absolute bottom-6 left-8 md:bottom-12 md:left-12 lg:bottom-12 lg:left-28 flex flex-col gap-y-4 text-[15px] md:text-xs font-bold tracking-[0.15em] uppercase z-10">
+        <div className="absolute bottom-6 left-8 md:bottom-12 md:left-12 lg:bottom-12 lg:left-28 flex flex-col lg:flex-row gap-y-4 lg:gap-x-10 text-[15px] md:text-xs font-bold tracking-[0.15em] uppercase z-10">
           <Link
             href="/contact"
             onClick={onClose}
