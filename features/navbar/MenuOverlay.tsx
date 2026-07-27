@@ -190,7 +190,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
         <div className="space-y-8 lg:space-y-16 lg:pl-8">
           {/* Sitemap */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-white/50 mb-3 lg:mb-8 font-semibold menu-footer-item">
+            <h4 className="text-[12px] uppercase tracking-[0.2em] text-white/50 mb-3 lg:mb-8 font-semibold menu-footer-item">
               Sitemap
             </h4>
             <div className="flex flex-col gap-2 lg:gap-5">
@@ -199,7 +199,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                   <Link
                     href={link.href}
                     onClick={onClose}
-                    className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-white hover:text-white/70 transition-colors inline-block"
+                    className="text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-white hover:text-white/70 transition-colors inline-block"
                   >
                     {link.label}
                   </Link>
@@ -210,10 +210,10 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
 
           {/* Follow */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-white/50 mb-3 lg:mb-6 font-semibold menu-footer-item">
+            <h4 className="text-[12px] uppercase tracking-[0.2em] text-white/50 mb-3 lg:mb-6 font-semibold menu-footer-item">
               Follow
             </h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] md:text-xs font-bold tracking-[0.15em] uppercase">
               {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.platform}
@@ -226,25 +226,26 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 </a>
               ))}
             </div>
-
-            <div className="flex flex-wrap gap-x-8 gap-y-2 text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase mt-6 lg:mt-16">
-              <Link
-                href="/contact"
-                onClick={onClose}
-                className="menu-footer-item text-white hover:text-white/70 transition-colors"
-              >
-                Get In Touch
-              </Link>
-              <a
-                href={siteConfig.links.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="menu-footer-item text-white hover:text-white/70 transition-colors"
-              >
-                Resume
-              </a>
-            </div>
           </div>
+        </div>
+
+        {/* Bottom Left Links */}
+        <div className="absolute bottom-6 left-8 md:bottom-12 md:left-12 lg:bottom-12 lg:left-28 flex flex-col gap-y-4 text-[15px] md:text-xs font-bold tracking-[0.15em] uppercase z-10">
+          <Link
+            href="/contact"
+            onClick={onClose}
+            className="menu-footer-item text-white hover:text-white/70 transition-colors"
+          >
+            Get In Touch
+          </Link>
+          <a
+            href={siteConfig.links.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="menu-footer-item text-white hover:text-white/70 transition-colors"
+          >
+            Resume
+          </a>
         </div>
 
         {/* Pacman Icon */}
