@@ -65,6 +65,8 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       const links = overlayRef.current.querySelectorAll(".menu-link-item");
       const footerElements =
         overlayRef.current.querySelectorAll(".menu-footer-item");
+      const leftPanelLines =
+        overlayRef.current.querySelectorAll(".left-panel-line");
 
       const pageElements = ["header", "#main-content", "footer"];
 
@@ -73,6 +75,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           overlayRef.current,
           links,
           footerElements,
+          leftPanelLines,
           ...pageElements,
         ]);
 
@@ -93,10 +96,16 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
             "<",
           )
           .fromTo(
+            leftPanelLines,
+            { scale: 1.5, y: 50, opacity: 0 },
+            { scale: 1, y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "back.out(1.2)" },
+            "-=0.5",
+          )
+          .fromTo(
             links,
             { x: 40, opacity: 0 },
             { x: 0, opacity: 1, duration: 0.5, stagger: 0.08 },
-            "-=0.4",
+            "-=0.6",
           )
           .fromTo(
             footerElements,
@@ -134,11 +143,11 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       >
         <div className="w-full flex flex-col items-center justify-center z-10 relative">
           <div className="text-[clamp(1.25rem,2.5vw,2.5rem)] font-bold uppercase leading-tight tracking-tight flex flex-col items-center text-center gap-3 md:gap-4 w-full">
-            <div className="flex items-center justify-center gap-2">
+            <div className="left-panel-line flex items-center justify-center gap-2">
               HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 -mt-1 md:-mt-2 text-black/90">{siteConfig.author}</span>
             </div>
             
-            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+            <div className="left-panel-line flex items-center justify-center gap-2 md:gap-3 flex-wrap">
               A 
               <span className="relative w-16 md:w-20 lg:w-24 h-8 md:h-10 lg:h-12 bg-gray-100 rounded-full overflow-hidden shadow-sm border border-black/10 flex-shrink-0 inline-flex">
                 <Image src="/images/laptop.png" fill className="object-cover" alt="Laptop" />
@@ -146,7 +155,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               SOFTWARE DEVELOPER
             </div>
             
-            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+            <div className="left-panel-line flex items-center justify-center gap-2 md:gap-3 flex-wrap">
               WHO 
               <span className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-[#8b5cf6] rounded-full text-white flex-shrink-0 shadow-sm">
                 <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" strokeWidth={2.5} />
@@ -154,7 +163,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               CRAFTS <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 mt-1 text-black/90">creative</span>
             </div>
             
-            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+            <div className="left-panel-line flex items-center justify-center gap-2 md:gap-3 flex-wrap">
               DIGITAL
               <span className="relative w-16 md:w-20 lg:w-24 h-8 md:h-10 lg:h-12 bg-gray-200 rounded-full overflow-hidden shadow-sm border border-black/10 flex-shrink-0 inline-flex">
                 <Image src="/images/abstract.png" fill className="object-cover" alt="Abstract faces" />
