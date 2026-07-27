@@ -121,20 +121,20 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
         ref={leftPanelRef}
         className="w-full lg:w-[60%] h-[55%] lg:h-full bg-white lg:rounded-r-[40px] p-8 md:p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden text-black z-10 shadow-2xl"
       >
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] xl:text-[5.5rem] font-bold uppercase leading-[1.1] tracking-tight">
-            HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] tracking-normal inline-block transform -rotate-2 -ml-2 -mb-2 text-black/90">{siteConfig.author}</span>
+        <div className="max-w-4xl z-10 relative">
+          <h1 className="text-[clamp(2rem,6vw,5.5rem)] lg:text-[clamp(2.5rem,4vw,5.5rem)] font-bold uppercase leading-[1.1] tracking-tight">
+            HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-[clamp(2.5rem,8vw,6.5rem)] lg:text-[clamp(3.5rem,5vw,6.5rem)] tracking-normal inline-block transform -rotate-2 -ml-1 -mb-1 md:-ml-2 md:-mb-2 text-black/90">{siteConfig.author}</span>
             <br />
             SOFTWARE DEVELOPER
             <br />
-            CRAFTS <span className="font-cursive lowercase font-normal text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] tracking-normal inline-block transform -rotate-2 mt-2 -ml-2 text-black/90">creative</span>
+            CRAFTS <span className="font-cursive lowercase font-normal text-[clamp(2.5rem,8vw,6.5rem)] lg:text-[clamp(3.5rem,5vw,6.5rem)] tracking-normal inline-block transform -rotate-2 mt-1 -ml-1 md:mt-2 md:-ml-2 text-black/90">creative</span>
             <br />
             EXPERIENCES
           </h1>
         </div>
         
         {/* Decorative Image */}
-        <div className="absolute bottom-6 left-6 lg:bottom-12 lg:left-20 w-32 md:w-40 lg:w-48 h-16 md:h-20 lg:h-24 bg-gray-200 rounded-full overflow-hidden shadow-lg border-2 border-black transform -rotate-3">
+        <div className="absolute bottom-6 left-6 lg:bottom-12 lg:left-12 xl:bottom-16 xl:left-20 w-[clamp(6rem,12vw,12rem)] h-[clamp(3rem,6vw,6rem)] bg-gray-200 rounded-full overflow-hidden shadow-lg border-2 border-black transform -rotate-3 z-0">
            <Image src="/images/abstract.png" fill className="object-cover" alt="Decorative" />
         </div>
       </div>
