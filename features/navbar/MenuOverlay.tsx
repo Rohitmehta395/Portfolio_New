@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site.config";
 import { useGsapContext } from "@/hooks/useGsapContext";
 import { useLenis } from "@/hooks/useLenis";
 import { gsap } from "@/lib/gsap/registerPlugins";
-import { X } from "lucide-react";
+import { X, ArrowUpRight } from "lucide-react";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -130,34 +130,38 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       {/* Left Panel */}
       <div
         ref={leftPanelRef}
-        className="w-full lg:w-[60%] h-[55%] lg:h-full bg-white lg:rounded-r-[40px] p-8 md:p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden text-black z-10 shadow-2xl"
+        className="w-full lg:w-[60%] h-[55%] lg:h-full bg-white lg:rounded-r-[40px] p-8 md:p-12 lg:p-20 flex flex-col justify-center items-center relative overflow-hidden text-black z-10 shadow-2xl"
       >
-        <div className="max-w-4xl z-10 relative">
-          <h1 className="text-[clamp(2rem,6vw,5.5rem)] lg:text-[clamp(2.5rem,4vw,5.5rem)] font-bold uppercase leading-[1.1] tracking-tight">
-            HELLO, I&apos;M{" "}
-            <span className="font-cursive lowercase font-normal text-[clamp(2.5rem,8vw,6.5rem)] lg:text-[clamp(3.5rem,5vw,6.5rem)] tracking-normal inline-block transform -rotate-2 -ml-1 -mb-1 md:-ml-2 md:-mb-2 text-black/90">
-              {siteConfig.author}
-            </span>
-            <br />
-            SOFTWARE DEVELOPER
-            <br />
-            CRAFTS{" "}
-            <span className="font-cursive lowercase font-normal text-[clamp(2.5rem,8vw,6.5rem)] lg:text-[clamp(3.5rem,5vw,6.5rem)] tracking-normal inline-block transform -rotate-2 mt-1 -ml-1 md:mt-2 md:-ml-2 text-black/90">
-              creative
-            </span>
-            <br />
-            EXPERIENCES
-          </h1>
-        </div>
-
-        {/* Decorative Image */}
-        <div className="absolute bottom-6 left-6 lg:bottom-12 lg:left-12 xl:bottom-16 xl:left-20 w-[clamp(6rem,12vw,12rem)] h-[clamp(3rem,6vw,6rem)] bg-gray-200 rounded-full overflow-hidden shadow-lg border-2 border-black transform -rotate-3 z-0">
-          <Image
-            src="/images/abstract.png"
-            fill
-            className="object-cover"
-            alt="Decorative"
-          />
+        <div className="w-full flex flex-col items-center justify-center z-10 relative">
+          <div className="text-[clamp(1.25rem,2.5vw,2.5rem)] font-bold uppercase leading-tight tracking-tight flex flex-col items-center text-center gap-3 md:gap-4 w-full">
+            <div className="flex items-center justify-center gap-2">
+              HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 -mt-1 md:-mt-2 text-black/90">{siteConfig.author}</span>
+            </div>
+            
+            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+              A 
+              <span className="relative w-16 md:w-20 lg:w-24 h-8 md:h-10 lg:h-12 bg-gray-100 rounded-full overflow-hidden shadow-sm border border-black/10 flex-shrink-0 inline-flex">
+                <Image src="/images/laptop.png" fill className="object-cover" alt="Laptop" />
+              </span>
+              SOFTWARE DEVELOPER
+            </div>
+            
+            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+              WHO 
+              <span className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-[#8b5cf6] rounded-full text-white flex-shrink-0 shadow-sm">
+                <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" strokeWidth={2.5} />
+              </span>
+              CRAFTS <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 mt-1 text-black/90">creative</span>
+            </div>
+            
+            <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+              DIGITAL
+              <span className="relative w-16 md:w-20 lg:w-24 h-8 md:h-10 lg:h-12 bg-gray-200 rounded-full overflow-hidden shadow-sm border border-black/10 flex-shrink-0 inline-flex">
+                <Image src="/images/abstract.png" fill className="object-cover" alt="Abstract faces" />
+              </span>
+              EXPERIENCES
+            </div>
+          </div>
         </div>
       </div>
 
