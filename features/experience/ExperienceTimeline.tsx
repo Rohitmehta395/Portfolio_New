@@ -6,6 +6,7 @@ import { ExperienceTimelineAnimated } from './ExperienceTimelineAnimated';
 
 interface ExperienceTimelineProps {
   limit?: number;
+  hideHeader?: boolean;
 }
 
 async function getExperiences(limit?: number): Promise<SerializedExperience[]> {
@@ -26,7 +27,7 @@ async function getExperiences(limit?: number): Promise<SerializedExperience[]> {
 /**
  * Server Component fetching Experience data from MongoDB.
  */
-export async function ExperienceTimeline({ limit }: ExperienceTimelineProps) {
+export async function ExperienceTimeline({ limit, hideHeader }: ExperienceTimelineProps) {
   const experiences = await getExperiences(limit);
   const isHomepageTeaser = typeof limit === 'number';
 
@@ -34,17 +35,19 @@ export async function ExperienceTimeline({ limit }: ExperienceTimelineProps) {
     <section className="w-full py-12 md:py-20 px-4 md:px-8 lg:px-12 max-w-[120rem] mx-auto relative overflow-hidden">
       <div className="w-full flex flex-col gap-12 bg-[#171717] text-white rounded-[2rem] pt-16 pb-12 px-4 sm:px-8 md:px-12 shadow-2xl">
         {/* Section Header */}
-        <div className="flex flex-col items-center gap-2 mb-4">
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white flex items-center gap-3">
-            <span>My</span>
-            <span 
-              className="font-light italic text-[#9b87f5]" 
-              style={{ fontFamily: 'var(--font-cursive, cursive)' }}
-            >
-              Experience
-            </span>
-          </h2>
-        </div>
+        {!hideHeader && (
+          <div className="flex flex-col items-center gap-2 mb-4">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white flex items-center gap-3">
+              <span>My</span>
+              <span 
+                className="font-light italic text-[#9b87f5]" 
+                style={{ fontFamily: 'var(--font-cursive, cursive)' }}
+              >
+                Experience
+              </span>
+            </h2>
+          </div>
+        )}
 
         {/* Animated Timeline Container (Client Component Wrapper) */}
         <div 

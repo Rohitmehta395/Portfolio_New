@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { getBlogPosts } from '@/actions/blog.actions';
 import { BlogCard } from '@/features/blog/BlogCard';
 
+import { PageHero } from '@/components/ui/PageHero';
+
 import { siteConfig } from '@/config/site.config';
 
 export const metadata: Metadata = {
@@ -25,19 +27,13 @@ export default async function BlogPage() {
   const posts = await getBlogPosts();
 
   return (
-    <main className="min-h-screen py-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-16 select-none">
-      {/* Blog Page Header */}
-      <div className="flex flex-col gap-4 border-b border-border pb-10">
-        <span className="text-xs font-mono font-semibold uppercase tracking-widest text-emerald-400">
-          Thoughts & Technical Writing
-        </span>
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground">
-          Articles & Insights
-        </h1>
-        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          Deep dives into software architecture, frontend performance optimization, design systems, and modern web development.
-        </p>
-      </div>
+    <main className="min-h-screen pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-12 select-none">
+      {/* Page Hero Section */}
+      <PageHero
+        title="My"
+        highlight="Blogs"
+        subtitle="Deep dives into software architecture, frontend performance optimization, design systems, and modern web development."
+      />
 
       {/* Articles Grid */}
       {posts.length === 0 ? (

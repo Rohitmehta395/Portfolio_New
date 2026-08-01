@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { getProjects } from '@/actions/project.actions';
 import { ProjectGrid } from '@/features/works/ProjectGrid';
 
+import { PageHero } from '@/components/ui/PageHero';
+
 import { siteConfig } from '@/config/site.config';
 import { SEO_DEFAULTS } from '@/constants/seo-defaults';
 
@@ -27,19 +29,13 @@ export default async function WorksPage() {
   const projects = await getProjects();
 
   return (
-    <main className="min-h-screen py-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-16 select-none">
-      {/* Works Page Header */}
-      <div className="flex flex-col gap-4 border-b border-border pb-10">
-        <span className="text-xs font-mono font-semibold uppercase tracking-widest text-emerald-400">
-          Portfolio & Case Studies
-        </span>
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground">
-          Selected Works
-        </h1>
-        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          A showcase of web applications, SaaS products, and mobile experiences engineered for performance, scale, and refined UX.
-        </p>
-      </div>
+    <main className="min-h-screen pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-12 select-none">
+      {/* Page Hero Section */}
+      <PageHero
+        title="My"
+        highlight="Works"
+        subtitle="A showcase of web applications, SaaS products, and mobile experiences engineered for performance, scale, and refined UX."
+      />
 
       {/* Interactive Filterable Projects Grid */}
       <ProjectGrid initialProjects={projects} />

@@ -6,6 +6,8 @@ import { getProjectBySlug } from '@/actions/project.actions';
 import { TagPill } from '@/features/experience/TagPill';
 import { siteConfig } from '@/config/site.config';
 
+import { PageHero } from '@/components/ui/PageHero';
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -92,25 +94,10 @@ export default async function ProjectDetailPage({ params }: Props) {
       </div>
 
       {/* Hero Header */}
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
-            {project.category}
-          </span>
-          {project.featured && (
-            <span className="rounded-full bg-foreground/10 border border-white/20 px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-foreground">
-              Featured
-            </span>
-          )}
-        </div>
-
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
-          {project.title}
-        </h1>
-
-        <p className="text-lg sm:text-xl text-secondary-foreground max-w-3xl leading-relaxed">
-          {project.shortDescription}
-        </p>
+      <PageHero
+        title={project.title}
+        subtitle={project.shortDescription}
+      />
 
         {/* Tech Stack & External Links Bar */}
         <div className="flex flex-wrap items-center justify-between gap-6 pt-4 border-t border-border">
@@ -146,7 +133,6 @@ export default async function ProjectDetailPage({ params }: Props) {
             )}
           </div>
         </div>
-      </div>
 
       {/* Main Cover Image */}
       <div className="relative w-full aspect-[16/9] overflow-hidden rounded-3xl border border-border bg-muted shadow-2xl">

@@ -7,6 +7,8 @@ import { TagPill } from '@/features/experience/TagPill';
 import { MDXRenderer } from '@/features/blog/MDXRenderer';
 import { siteConfig } from '@/config/site.config';
 
+import { PageHero } from '@/components/ui/PageHero';
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -90,19 +92,17 @@ export default async function BlogPostDetailPage({ params }: Props) {
       </div>
 
       {/* Article Header */}
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap items-center gap-3">
+      <PageHero
+        title={post.title}
+        subtitle={post.excerpt}
+      />
+
+      <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-t border-b border-border/80 py-3">
+        <span>Published on {formatDate(post.publishedAt)}</span>
+        <div className="flex flex-wrap items-center gap-2">
           {post.tags.map((tag) => (
             <TagPill key={tag} label={tag} variant="default" />
           ))}
-        </div>
-
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
-          {post.title}
-        </h1>
-
-        <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-t border-b border-border/80 py-3">
-          <span>Published on {formatDate(post.publishedAt)}</span>
         </div>
       </div>
 
