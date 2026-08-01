@@ -20,10 +20,10 @@ export const Contact2 = ({
   email = "rohitmehtaddn@gmail.com",
 }: Contact2Props) => {
   return (
-    <section className="py-32">
+    <section className="py-16 md:py-24 lg:py-32">
       <div className="container">
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
-          <div className="mx-auto flex max-w-sm flex-col justify-between gap-10">
+          <div className="mx-auto flex w-full max-w-sm flex-col justify-between gap-10">
             <div className="text-center lg:text-left">
               <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">
                 {title}
@@ -48,8 +48,8 @@ export const Contact2 = ({
               </ul>
             </div>
           </div>
-          <div className="mx-auto flex max-w-screen-md flex-col gap-6 rounded-lg border p-10">
-            <div className="flex gap-4">
+          <div className="mx-auto flex w-full max-w-screen-md flex-col gap-6 rounded-lg border p-6 md:p-10">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="grid w-full items-center gap-1.5">
                 <Label htmlFor="firstname">First Name</Label>
                 <Input type="text" id="firstname" placeholder="First Name" />
