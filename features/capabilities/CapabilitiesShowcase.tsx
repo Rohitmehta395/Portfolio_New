@@ -161,8 +161,8 @@ export function CapabilitiesShowcase() {
     <section className="w-full bg-white dark:bg-black select-none transition-colors duration-300">
       {/* 1. MOBILE LAYOUT */}
       <div className="block md:hidden px-6 py-16">
-        <div className="flex flex-col gap-3 mb-10 border-b border-neutral-200 pb-6">
-          <h2 className="font-display text-4xl font-extrabold tracking-tight text-black dark:text-white flex items-center gap-3 transition-colors">
+        <div className="flex flex-col gap-3 mb-10 items-center">
+          <h2 className="font-display text-4xl font-extrabold tracking-tight text-black dark:text-white flex items-center justify-center gap-3 transition-colors">
             What{" "}
             <span className="font-cursive text-indigo-500 dark:text-[#b19df7] font-light lowercase text-5xl -mt-2 transition-colors">
               I do
@@ -170,18 +170,13 @@ export function CapabilitiesShowcase() {
           </h2>
         </div>
 
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-12">
           {CAPABILITIES_DATA.map((cap) => (
-            <div key={cap.id} className="flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                <span className="text-8xl font-bold tracking-tighter text-black dark:text-white leading-none transition-colors">
-                  {cap.number}
-                </span>
-                <span className="bg-black text-white dark:bg-white dark:text-black px-5 py-2 rounded-full text-sm font-semibold w-fit transition-colors">
-                  {cap.pillCategory}
-                </span>
-              </div>
-              <CapabilityCard capability={cap} />
+            <div key={cap.id} className="flex flex-col gap-6 items-center">
+              <span className="bg-black text-white dark:bg-white dark:text-black px-5 py-2 rounded-full text-sm font-semibold w-fit transition-colors">
+                {cap.pillCategory}
+              </span>
+              <CapabilityCard capability={cap} className="w-full" />
             </div>
           ))}
         </div>
