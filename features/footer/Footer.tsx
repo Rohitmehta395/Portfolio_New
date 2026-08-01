@@ -17,10 +17,10 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#0a0a0a] text-white rounded-t-[2.5rem] px-8 md:px-20 pt-20 pb-0 mt-auto overflow-hidden">
+    <footer className="w-full bg-[#0a0a0a] text-white rounded-t-[2.5rem] px-8 md:px-20 pt-20 pb-10 mt-auto overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col">
         {/* Top Section */}
-        <div className="flex flex-col md:flex-row justify-between gap-16 md:gap-8 mb-20 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between gap-16 md:gap-8 mb-12 md:mb-20 relative z-10">
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24 w-full md:w-3/4">
             {/* SITEMAP */}
@@ -61,8 +61,8 @@ export function Footer() {
             {/* WORK WITH ME */}
             <div className="flex flex-col gap-6 md:col-span-1 col-span-2">
               <h4 className="text-sm font-bold tracking-widest uppercase">WORK WITH ME:</h4>
-              <div className="flex items-center gap-4">
-                <span className="text-2xl md:text-3xl font-semibold tracking-tight">{realEmail}</span>
+              <div className="flex items-center gap-3 sm:gap-4">
+                <span className="text-[1.05rem] xs:text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight truncate">{realEmail}</span>
                 <button
                   onClick={() => copy(realEmail)}
                   className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
@@ -82,8 +82,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Scroll to top button */}
-          <div className="absolute top-0 right-0 md:relative flex justify-end">
+          {/* Scroll to top button - Desktop */}
+          <div className="hidden md:flex relative justify-end">
             <button
               onClick={scrollToTop}
               className="w-16 h-16 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform"
@@ -95,17 +95,28 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-[1px] bg-white/20 mb-12 relative z-10" />
+        <div className="hidden md:block w-full h-[1px] bg-white/20 mb-12 relative z-10" />
 
         {/* Bottom Section */}
         <div className="flex items-end justify-between relative">
           {/* Large Name */}
-          <h1 className="font-cursive text-7xl sm:text-9xl md:text-[14rem] lg:text-[18rem] leading-none tracking-tight -mb-6 md:-mb-12 whitespace-nowrap text-white relative z-10">
+          <h1 className="font-cursive text-[6rem] xs:text-[7.5rem] sm:text-9xl md:text-[14rem] lg:text-[18rem] leading-none tracking-tight -mb-8 md:-mb-12 whitespace-nowrap text-white relative z-10">
             {siteConfig.author}
           </h1>
           
+          {/* Scroll to top button - Mobile */}
+          <div className="flex md:hidden relative z-20 mb-2 mr-2">
+            <button
+              onClick={scrollToTop}
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-5 h-5 text-black" />
+            </button>
+          </div>
+
           {/* Ghost Icon */}
-          <div className="absolute bottom-6 right-0 md:bottom-12 md:right-8 w-16 h-16 md:w-20 md:h-20 text-[#FF0000] z-20">
+          <div className="hidden md:block absolute bottom-6 right-0 md:bottom-12 md:right-8 w-16 h-16 md:w-20 md:h-20 text-[#FF0000] z-20">
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
                <path d="M 20 50 C 20 20 35 10 50 10 C 65 10 80 20 80 50 L 80 90 L 70 80 L 60 90 L 50 80 L 40 90 L 30 80 L 20 90 Z" />
                <circle cx="35" cy="40" r="8" fill="white" />
