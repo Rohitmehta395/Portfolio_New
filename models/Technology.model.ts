@@ -3,6 +3,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 export interface ITechnology extends Document {
   name: string;
   icon?: string;
+  order?: number;
   category: 'frontend' | 'backend' | 'database' | 'devops' | 'mobile';
   createdAt: Date;
   updatedAt: Date;
@@ -18,6 +19,10 @@ const TechnologySchema = new Schema<ITechnology>(
     },
     icon: {
       type: String,
+    },
+    order: {
+      type: Number,
+      default: 0,
     },
     category: {
       type: String,

@@ -37,6 +37,11 @@ export function TechnologiesClient({ technologies }: { technologies: SerializedT
       cell: (t) => (t.icon ? <div className="text-sm truncate max-w-[150px]" title={t.icon}>{t.icon}</div> : '-'),
     },
     {
+      id: 'order',
+      header: 'Order',
+      cell: (t) => <div className="font-medium">{t.order}</div>,
+    },
+    {
       id: 'actions',
       header: 'Actions',
       cell: (t) => (

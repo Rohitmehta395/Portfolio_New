@@ -12,7 +12,7 @@ interface TechItem {
 async function getTechnologies(): Promise<TechItem[]> {
   try {
     await connectDB();
-    const techDocs = await Technology.find({}).sort({ category: 1, name: 1 }).lean();
+    const techDocs = await Technology.find({}).sort({ order: 1, name: 1 }).lean();
     return JSON.parse(JSON.stringify(techDocs));
   } catch (error) {
     console.error('Failed to fetch technologies:', error);

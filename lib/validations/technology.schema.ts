@@ -4,6 +4,7 @@ export interface SerializedTechnology {
   _id: string;
   name: string;
   icon?: string;
+  order: number;
   category: 'frontend' | 'backend' | 'database' | 'devops' | 'mobile';
   createdAt: string;
   updatedAt: string;
@@ -28,6 +29,7 @@ export function validateTechnologyData(data: unknown): SerializedTechnology {
     _id: String(tech._id),
     name: tech.name,
     icon: tech.icon ? String(tech.icon) : undefined,
+    order: Number(tech.order) || 0,
     category: tech.category,
     createdAt: tech.createdAt ? new Date(tech.createdAt).toISOString() : new Date().toISOString(),
     updatedAt: tech.updatedAt ? new Date(tech.updatedAt).toISOString() : new Date().toISOString(),
@@ -37,6 +39,7 @@ export function validateTechnologyData(data: unknown): SerializedTechnology {
 export const technologyZodSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   icon: z.string().optional(),
+  order: z.coerce.number().optional().default(0),
   category: z.enum(['frontend', 'backend', 'database', 'devops', 'mobile']),
 });
 

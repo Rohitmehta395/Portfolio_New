@@ -30,6 +30,7 @@ export function TechnologyForm({ initialData }: TechnologyFormProps) {
       name: initialData?.name || '',
       category: initialData?.category || 'frontend',
       icon: initialData?.icon || '',
+      order: initialData?.order || 0,
     },
   });
 
@@ -96,6 +97,14 @@ export function TechnologyForm({ initialData }: TechnologyFormProps) {
             <Input id="icon" {...form.register('icon')} placeholder="e.g. devicon-react-original" />
             {form.formState.errors.icon && (
               <p className="text-sm text-red-500">{form.formState.errors.icon.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="order">Order (Lower numbers appear first)</Label>
+            <Input id="order" type="number" {...form.register('order')} placeholder="0" />
+            {form.formState.errors.order && (
+              <p className="text-sm text-red-500">{form.formState.errors.order.message}</p>
             )}
           </div>
         </CardContent>
