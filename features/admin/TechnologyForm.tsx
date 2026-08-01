@@ -102,7 +102,7 @@ export function TechnologyForm({ initialData }: TechnologyFormProps) {
 
           <div className="space-y-2">
             <Label htmlFor="order">Order (Lower numbers appear first)</Label>
-            <Input id="order" type="number" {...form.register('order')} placeholder="0" />
+            <Input id="order" type="number" {...form.register('order', { valueAsNumber: true })} placeholder="0" />
             {form.formState.errors.order && (
               <p className="text-sm text-red-500">{form.formState.errors.order.message}</p>
             )}

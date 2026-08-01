@@ -39,7 +39,7 @@ export function validateTechnologyData(data: unknown): SerializedTechnology {
 export const technologyZodSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   icon: z.string().optional(),
-  order: z.coerce.number().optional().default(0),
+  order: z.number(),
   category: z.enum(['frontend', 'backend', 'database', 'devops', 'mobile']),
 });
 
