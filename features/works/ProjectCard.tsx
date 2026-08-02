@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { SerializedProject } from '@/lib/validations/project.schema';
 
 interface ProjectCardProps {
@@ -17,48 +15,8 @@ interface ProjectCardProps {
  * and a cursor-following "VIEW" badge on hover.
  */
 export function ProjectCard({ project, className = '' }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setCursorPos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseMove={handleMouseMove}
-      className={`group relative flex flex-col justify-between h-full select-none ${className}`}
-    >
-      {/* Floating Cursor "VIEW" Tag */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              x: cursorPos.x + 14,
-              y: cursorPos.y + 14,
-            }}
-            exit={{ opacity: 0, scale: 0.6 }}
-            transition={{
-              type: 'spring',
-              stiffness: 300,
-              damping: 25,
-              mass: 0.4,
-            }}
-            className="pointer-events-none absolute top-0 left-0 z-30 hidden md:flex items-center justify-center rounded-full rounded-tl-none bg-black dark:bg-white text-white dark:text-black px-4 py-1.5 text-[11px] font-sans font-extrabold uppercase tracking-wider shadow-xl"
-          >
-            VIEW
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className={`group flex flex-col justify-between h-full select-none ${className}`}>
 
       <div className="flex flex-col gap-4">
         {/* Cover Image */}
