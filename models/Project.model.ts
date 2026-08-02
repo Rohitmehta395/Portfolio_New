@@ -1,8 +1,7 @@
-import mongoose, { Schema, Document, Model, Types } from 'mongoose';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface IProject extends Document {
   title: string;
-  slug: string;
   category: 'website' | 'saas' | 'mobile';
   shortDescription: string;
   coverImage: string;
@@ -10,7 +9,9 @@ export interface IProject extends Document {
   techStack: string[];
   liveUrl?: string;
   repoUrl?: string;
-  caseStudyRef?: Types.ObjectId;
+  goal?: string;
+  contribution?: string;
+  outcome?: string;
   featured: boolean;
   order: number;
   published: boolean;
@@ -23,11 +24,6 @@ const ProjectSchema = new Schema<IProject>(
     title: {
       type: String,
       required: [true, 'Title is required'],
-    },
-    slug: {
-      type: String,
-      required: [true, 'Slug is required'],
-      unique: true,
     },
     category: {
       type: String,
@@ -57,9 +53,14 @@ const ProjectSchema = new Schema<IProject>(
     repoUrl: {
       type: String,
     },
-    caseStudyRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'CaseStudy',
+    goal: {
+      type: String,
+    },
+    contribution: {
+      type: String,
+    },
+    outcome: {
+      type: String,
     },
     featured: {
       type: Boolean,

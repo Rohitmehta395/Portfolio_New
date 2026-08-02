@@ -18,7 +18,6 @@ async function seedProjects() {
   const sampleProjects: Partial<IProject>[] = [
     {
       title: 'Quantum Analytics SaaS Platform',
-      slug: 'quantum-analytics',
       category: 'saas',
       shortDescription:
         'Real-time metrics visualization and AI-driven data intelligence dashboard built for high-concurrency enterprise workloads.',
@@ -34,7 +33,6 @@ async function seedProjects() {
     },
     {
       title: 'Aura E-Commerce Experience',
-      slug: 'aura-ecommerce',
       category: 'website',
       shortDescription:
         'Ultra-responsive luxury fashion storefront featuring kinetic typography, product showcases, and interactive cart transitions.',
@@ -50,7 +48,6 @@ async function seedProjects() {
     },
     {
       title: 'Pulse Health & Fitness Companion',
-      slug: 'pulse-fitness',
       category: 'mobile',
       shortDescription:
         'Cross-platform mobile wellness application tracking workout telemetry, biometric trends, and customized nutrition plans.',
@@ -65,7 +62,6 @@ async function seedProjects() {
     },
     {
       title: 'Nexus Developer API Portal',
-      slug: 'nexus-api-portal',
       category: 'saas',
       shortDescription:
         'Developer documentation hub, interactive API sandbox, and key management console with automated SDK generation.',
@@ -81,7 +77,6 @@ async function seedProjects() {
     },
     {
       title: 'Vanguard Editorial Portfolio',
-      slug: 'vanguard-portfolio',
       category: 'website',
       shortDescription:
         'Editorial creative agency website built with smooth Lenis virtualized scrolling and dynamic layout transitions.',
@@ -96,7 +91,6 @@ async function seedProjects() {
     },
     {
       title: 'Orbit Task Management Mobile',
-      slug: 'orbit-task-mobile',
       category: 'mobile',
       shortDescription:
         'Minimalist offline-first mobile productivity tracker with gesture-based interactions and dark editorial UI design.',

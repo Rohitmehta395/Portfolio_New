@@ -2,12 +2,9 @@
 
 import connectDB from '@/lib/db/connect';
 import Project from '@/models/Project.model';
-import CaseStudy from '@/models/CaseStudy.model';
 import {
   validateProjectData,
-  validateProjectWithCaseStudyData,
   SerializedProject,
-  SerializedProjectWithCaseStudy,
   projectZodSchema,
 } from '@/lib/validations/project.schema';
 import { requireAdminSession } from '@/lib/auth/getAdminSession';
@@ -44,42 +41,19 @@ export async function getProjects(filters?: ProjectFilters): Promise<SerializedP
   }
 }
 
-export async function getProjectBySlug(
-  slug: string
-): Promise<SerializedProjectWithCaseStudy | null> {
-  try {
-    await connectDB();
-    if (!CaseStudy) {} // ensure registered
-
-    const projectDoc = await Project.findOne({ slug, published: true })
-      .populate('caseStudyRef')
-      .lean();
-
-    if (!projectDoc) {
-      return null;
-    }
-
-    return validateProjectWithCaseStudyData(projectDoc);
-  } catch (error) {
-    console.error(`Failed to fetch project by slug "${slug}":`, error);
-    return null;
-  }
-}
-
 export async function getProjectById(
   id: string
-): Promise<SerializedProjectWithCaseStudy | null> {
+): Promise<SerializedProject | null> {
   try {
     await requireAdminSession();
     await connectDB();
-    if (!CaseStudy) {} // ensure registered
 
-    const projectDoc = await Project.findById(id).populate('caseStudyRef').lean();
+    const projectDoc = await Project.findById(id).lean();
     if (!projectDoc) {
       return null;
     }
 
-    return validateProjectWithCaseStudyData(projectDoc);
+    return validateProjectData(projectDoc);
   } catch (error) {
     console.error(`Failed to fetch project by id "${id}":`, error);
     return null;
@@ -96,16 +70,11 @@ export async function createProject(formData: any) {
       return { success: false, error: 'Invalid project data' };
     }
 
-    const existingSlug = await Project.findOne({ slug: parsed.data.slug });
-    if (existingSlug) {
-      return { success: false, error: 'Slug is already in use' };
-    }
-
     const newProject = await Project.create(parsed.data);
     
     revalidatePath('/works');
     revalidatePath('/admin/projects');
-    revalidatePath('/admin'); // for dashboard stats
+    revalidatePath('/admin');
 
     return { success: true, id: newProject._id.toString() };
   } catch (error: any) {
@@ -124,18 +93,12 @@ export async function updateProject(id: string, formData: any) {
       return { success: false, error: 'Invalid project data' };
     }
 
-    const existingSlug = await Project.findOne({ slug: parsed.data.slug, _id: { $ne: id } });
-    if (existingSlug) {
-      return { success: false, error: 'Slug is already in use by another project' };
-    }
-
     const updatedProject = await Project.findByIdAndUpdate(id, parsed.data, { new: true });
     if (!updatedProject) {
       return { success: false, error: 'Project not found' };
     }
 
     revalidatePath('/works');
-    revalidatePath(`/works/${updatedProject.slug}`);
     revalidatePath('/admin/projects');
 
     return { success: true, id: updatedProject._id.toString() };
@@ -150,16 +113,10 @@ export async function deleteProject(id: string) {
     await requireAdminSession();
     await connectDB();
 
-    const project = await Project.findById(id);
+    const project = await Project.findByIdAndDelete(id);
     if (!project) {
       return { success: false, error: 'Project not found' };
     }
-
-    // Cascade delete CaseStudy if it exists
-    await CaseStudy.deleteOne({ projectRef: project._id });
-    
-    // Actually delete the project
-    await Project.findByIdAndDelete(id);
 
     revalidatePath('/works');
     revalidatePath('/admin/projects');
@@ -187,7 +144,6 @@ export async function toggleProjectField(id: string, field: 'published' | 'featu
     }
 
     revalidatePath('/works');
-    revalidatePath(`/works/${updated.slug}`);
     revalidatePath('/admin/projects');
     revalidatePath('/admin');
 

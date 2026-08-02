@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import {
   projectZodSchema,
   ProjectFormValues,
-  SerializedProjectWithCaseStudy,
+  SerializedProject,
 } from '@/lib/validations/project.schema';
 import { createProject, updateProject } from '@/actions/project.actions';
 import { uploadImageToCloudinary } from '@/lib/cloudinary/upload';
@@ -19,7 +19,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 interface ProjectFormProps {
-  initialData?: SerializedProjectWithCaseStudy;
+  initialData?: SerializedProject;
 }
 
 export function ProjectForm({ initialData }: ProjectFormProps) {
@@ -32,7 +32,6 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     resolver: zodResolver(projectZodSchema),
     defaultValues: {
       title: initialData?.title || '',
-      slug: initialData?.slug || '',
       category: initialData?.category || 'website',
       shortDescription: initialData?.shortDescription || '',
       coverImage: initialData?.coverImage || '',
@@ -40,6 +39,9 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
       techStack: initialData?.techStack || [],
       liveUrl: initialData?.liveUrl || '',
       repoUrl: initialData?.repoUrl || '',
+      goal: initialData?.goal || '',
+      contribution: initialData?.contribution || '',
+      outcome: initialData?.outcome || '',
       featured: initialData?.featured || false,
       order: initialData?.order || 0,
       published: initialData?.published !== undefined ? initialData.published : true,
@@ -144,14 +146,6 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug</Label>
-              <Input id="slug" {...form.register('slug')} />
-              {form.formState.errors.slug && (
-                <p className="text-sm text-red-500">{form.formState.errors.slug.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
               <select
                 id="category"
@@ -229,18 +223,54 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
             <div className="space-y-2">
               <Label htmlFor="liveUrl">Live URL</Label>
-              <Input id="liveUrl" {...form.register('liveUrl')} />
+              <Input id="liveUrl" placeholder="https://example.com" {...form.register('liveUrl')} />
               {form.formState.errors.liveUrl && (
                 <p className="text-sm text-red-500">{form.formState.errors.liveUrl.message}</p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="repoUrl">Repo URL</Label>
-              <Input id="repoUrl" {...form.register('repoUrl')} />
+              <Label htmlFor="repoUrl">Repo / Source Code URL</Label>
+              <Input id="repoUrl" placeholder="https://github.com/user/repo" {...form.register('repoUrl')} />
               {form.formState.errors.repoUrl && (
                 <p className="text-sm text-red-500">{form.formState.errors.repoUrl.message}</p>
               )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Modal Case Study Content (Goal, Contribution, Outcome) */}
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>Modal Details (Goal, Contribution, Outcome)</CardTitle>
+            <CardDescription>Customize the text rendered in the project modal popup.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="goal">The Goal</Label>
+              <Textarea
+                id="goal"
+                placeholder="Describe the objective of this project (defaults to short description if blank)..."
+                {...form.register('goal')}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contribution">My Contribution</Label>
+              <Textarea
+                id="contribution"
+                placeholder="Describe your role and technical contribution..."
+                {...form.register('contribution')}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="outcome">The Outcome</Label>
+              <Textarea
+                id="outcome"
+                placeholder="Describe the results and impact..."
+                {...form.register('outcome')}
+              />
             </div>
           </CardContent>
         </Card>
@@ -297,3 +327,5 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     </form>
   );
 }
+
+export default ProjectForm;

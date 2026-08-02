@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { SerializedProject } from '@/lib/validations/project.schema';
 
 interface ProjectCardProps {
   project: SerializedProject;
+  onSelect?: (project: SerializedProject) => void;
   className?: string;
 }
 
@@ -14,11 +14,14 @@ interface ProjectCardProps {
  * Renders cover image with rounded corners, title, short description, monospaced tech stack pills,
  * and a cursor-following "VIEW" badge on hover.
  */
-export function ProjectCard({ project, className = '' }: ProjectCardProps) {
+export function ProjectCard({ project, onSelect, className = '' }: ProjectCardProps) {
   return (
-    <div className={`group flex flex-col gap-4 select-none ${className}`}>
+    <div
+      onClick={() => onSelect?.(project)}
+      className={`group flex flex-col gap-4 select-none cursor-pointer ${className}`}
+    >
       {/* Cover Image */}
-      <Link href={`/works/${project.slug}`} className="block relative w-full aspect-[1.5/1] overflow-hidden rounded-lg bg-muted">
+      <div className="block relative w-full aspect-[1.5/1] overflow-hidden rounded-lg bg-muted">
         <Image
           src={project.coverImage}
           alt={project.title}
@@ -27,14 +30,12 @@ export function ProjectCard({ project, className = '' }: ProjectCardProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           unoptimized
         />
-      </Link>
+      </div>
 
       {/* Details: Title, Short Description & Tech Stack */}
       <div className="flex flex-col gap-2 mt-1">
         <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-          <Link href={`/works/${project.slug}`}>
-            {project.title}
-          </Link>
+          {project.title}
         </h3>
 
         <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground line-clamp-3">
@@ -60,5 +61,3 @@ export function ProjectCard({ project, className = '' }: ProjectCardProps) {
 }
 
 export default ProjectCard;
-
-

@@ -32,7 +32,7 @@ export function ProjectsClient({ projects }: { projects: SerializedProject[] }) 
 
   const handleDelete = (id: string) => {
     setErrorMsg(null);
-    if (confirm('Are you sure you want to delete this project? This will also delete any linked Case Study.')) {
+    if (confirm('Are you sure you want to delete this project?')) {
       startTransition(async () => {
         try {
           const res = await deleteProject(id);
@@ -54,7 +54,6 @@ export function ProjectsClient({ projects }: { projects: SerializedProject[] }) 
       cell: (p) => (
         <div className="font-medium">
           {p.title}
-          <div className="text-xs text-muted-foreground">{p.slug}</div>
         </div>
       ),
     },
