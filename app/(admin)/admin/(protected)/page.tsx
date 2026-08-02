@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAdminSession } from '@/lib/auth/getAdminSession';
 import { DashboardStats } from '@/features/admin/DashboardStats';
-import { PlusCircle, FilePlus, MessageSquareText, ArrowRight } from 'lucide-react';
+import { PlusCircle, MessageSquareText, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,7 +32,7 @@ export default async function AdminDashboardPage() {
           Welcome back, {session?.user?.name || 'Admin'}
         </h1>
         <p className="text-sm text-neutral-400 leading-relaxed">
-          Manage your portfolio projects, published articles, and incoming client contact messages.
+          Manage your portfolio projects, experiences, skills, and incoming client contact messages.
         </p>
       </div>
 
@@ -43,7 +43,7 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-col gap-6 pt-4">
         <h2 className="font-display text-xl font-bold text-white">Quick Management Actions</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Action 1: Create Project */}
           <Link
             href="/admin/projects/new"
@@ -64,27 +64,7 @@ export default async function AdminDashboardPage() {
             </div>
           </Link>
 
-          {/* Action 2: Create Post */}
-          <Link
-            href="/admin/blog/new"
-            className="group flex flex-col justify-between rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 transition-all hover:border-neutral-700 hover:bg-neutral-900"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
-                <FilePlus className="w-5 h-5" />
-              </div>
-              <ArrowRight className="w-4 h-4 text-neutral-500 transition-transform group-hover:translate-x-1 group-hover:text-white" />
-            </div>
-
-            <div className="flex flex-col gap-1 mt-6">
-              <h3 className="font-display font-bold text-lg text-white">Write Blog Article</h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Draft and publish technical MDX articles and architectural deep dives.
-              </p>
-            </div>
-          </Link>
-
-          {/* Action 3: View Messages */}
+          {/* Action 2: View Messages */}
           <Link
             href="/admin/messages"
             className="group flex flex-col justify-between rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 transition-all hover:border-neutral-700 hover:bg-neutral-900"

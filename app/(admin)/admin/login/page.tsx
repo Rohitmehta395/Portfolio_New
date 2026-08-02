@@ -38,7 +38,7 @@ export default async function AdminLoginPage({ searchParams }: Props) {
             Admin Portal
           </h1>
           <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-            Authenticate using your allow-listed administrator account to manage projects, blog posts, and messages.
+            Authenticate using your allow-listed administrator account to manage projects, content, and messages.
           </p>
         </div>
 

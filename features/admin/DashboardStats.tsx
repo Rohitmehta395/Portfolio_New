@@ -1,8 +1,7 @@
 import connectDB from '@/lib/db/connect';
 import Project from '@/models/Project.model';
-import BlogPost from '@/models/BlogPost.model';
 import ContactMessage from '@/models/ContactMessage.model';
-import { FolderKanban, FileCheck, FileClock, MailWarning } from 'lucide-react';
+import { FolderKanban, Star, MailWarning } from 'lucide-react';
 
 /**
  * Server Component fetching live Mongoose document counts for the Admin Dashboard overview.
@@ -10,23 +9,20 @@ import { FolderKanban, FileCheck, FileClock, MailWarning } from 'lucide-react';
  */
 export async function DashboardStats() {
   let totalProjects = 0;
-  let publishedPosts = 0;
-  let draftPosts = 0;
+  let featuredProjects = 0;
   let unreadMessages = 0;
   let dbError = false;
 
   try {
     await connectDB();
-    [totalProjects, publishedPosts, draftPosts, unreadMessages] = await Promise.all([
+    [totalProjects, featuredProjects, unreadMessages] = await Promise.all([
       Project.countDocuments(),
-      BlogPost.countDocuments({ published: true }),
-      BlogPost.countDocuments({ published: false }),
+      Project.countDocuments({ featured: true }),
       ContactMessage.countDocuments({ read: false }),
     ]);
   } catch {
     dbError = true;
   }
-
 
   const STATS = [
     {
@@ -38,18 +34,10 @@ export async function DashboardStats() {
       bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     },
     {
-      label: 'Published Posts',
-      value: publishedPosts,
-      description: 'Live articles',
-      icon: FileCheck,
-      color: 'text-sky-400',
-      bgColor: 'bg-sky-500/10 border-sky-500/20',
-    },
-    {
-      label: 'Draft Posts',
-      value: draftPosts,
-      description: 'Work in progress',
-      icon: FileClock,
+      label: 'Featured Projects',
+      value: featuredProjects,
+      description: 'Highlighted on showcase',
+      icon: Star,
       color: 'text-amber-400',
       bgColor: 'bg-amber-500/10 border-amber-500/20',
     },
@@ -70,7 +58,7 @@ export async function DashboardStats() {
           ⚠ Database connection failed — counts may be inaccurate. Check Atlas IP allow-list.
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {STATS.map((stat) => {
           const Icon = stat.icon;
           return (

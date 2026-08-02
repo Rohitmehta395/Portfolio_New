@@ -16,7 +16,6 @@ interface AdminSidebarProps {
 const NAV_ITEMS = [
   { label: 'Overview', href: '/admin', icon: LayoutDashboard },
   { label: 'Projects CMS', href: '/admin/projects', icon: FolderKanban },
-  { label: 'Blog CMS', href: '/admin/blog', icon: FileText },
   { label: 'Experience CMS', href: '/admin/experience', icon: FileText },
   { label: 'Skills CMS', href: '/admin/skills', icon: FileText },
   { label: 'Technologies CMS', href: '/admin/technologies', icon: FileText },

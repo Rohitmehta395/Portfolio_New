@@ -9,7 +9,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'My Journey', href: '/journey' },
   { label: 'My Works', href: '/works' },
   { label: 'My Experience', href: '/experience' },
-  { label: 'Blog', href: '/blog' },
 ];
 
 export default NAV_LINKS;

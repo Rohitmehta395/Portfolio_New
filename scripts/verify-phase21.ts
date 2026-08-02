@@ -11,9 +11,8 @@ async function verify() {
   // Extract a few lines to show
   console.log(`\nExcerpt:\n${sitemapBody.split('\n').slice(0, 15).join('\n')}...`);
   
-  // Verify it contains home, works, blog
+  // Verify it contains home, works
   console.log(`\nContains /works?`, sitemapBody.includes('<loc>http://localhost:3000/works</loc>'));
-  console.log(`Contains /blog?`, sitemapBody.includes('<loc>http://localhost:3000/blog</loc>'));
 
   console.log('\n======================================');
   console.log('2. Check robots.txt');
@@ -67,23 +66,14 @@ async function verify() {
 
   await checkPage('/', 'Homepage');
   await checkPage('/works', 'Works Listing');
-  await checkPage('/blog', 'Blog Listing');
   
-  // To check dynamic pages, we'll extract the first URL from sitemap for works and blog
+  // To check dynamic pages, we'll extract the first URL from sitemap for works
   const worksMatch = sitemapBody.match(/<loc>(http:\/\/localhost:3000\/works\/[^<]+)<\/loc>/);
   if (worksMatch) {
     const worksUrl = worksMatch[1].replace('http://localhost:3000', '');
     await checkPage(worksUrl, 'Project Detail');
   } else {
     console.log('\nNo /works/[slug] found in sitemap to test.');
-  }
-
-  const blogMatch = sitemapBody.match(/<loc>(http:\/\/localhost:3000\/blog\/[^<]+)<\/loc>/);
-  if (blogMatch) {
-    const blogUrl = blogMatch[1].replace('http://localhost:3000', '');
-    await checkPage(blogUrl, 'Blog Detail');
-  } else {
-    console.log('\nNo /blog/[slug] found in sitemap to test.');
   }
 
 }
