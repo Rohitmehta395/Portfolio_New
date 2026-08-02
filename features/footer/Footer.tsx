@@ -6,6 +6,7 @@ import { SOCIAL_LINKS } from '@/constants/social-links';
 import { siteConfig } from '@/config/site.config';
 import { ArrowUp, Copy, Check } from 'lucide-react';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { LuffyFloat } from '@/components/ui/LuffyFloat';
 
 export function Footer() {
   const { copied, copy } = useCopyToClipboard(2500);
@@ -136,19 +137,9 @@ export function Footer() {
             </button>
           </div>
 
-          {/* Ghost Icon */}
-          <div className="hidden md:block absolute bottom-6 right-0 md:bottom-12 md:right-8 w-16 h-16 md:w-20 md:h-20 text-[#FF0000] z-20">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 100 100"
-              fill="currentColor"
-            >
-              <path d="M 20 50 C 20 20 35 10 50 10 C 65 10 80 20 80 50 L 80 90 L 70 80 L 60 90 L 50 80 L 40 90 L 30 80 L 20 90 Z" />
-              <circle cx="35" cy="40" r="8" fill="white" />
-              <circle cx="38" cy="40" r="4" fill="blue" />
-              <circle cx="65" cy="40" r="8" fill="white" />
-              <circle cx="68" cy="40" r="4" fill="blue" />
-            </svg>
+          {/* Luffy Float */}
+          <div className="hidden md:block absolute bottom-6 right-0 md:bottom-12 md:right-8 z-20">
+            <LuffyFloat />
           </div>
         </div>
       </div>

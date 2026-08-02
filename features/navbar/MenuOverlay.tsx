@@ -10,30 +10,14 @@ import { useGsapContext } from "@/hooks/useGsapContext";
 import { useLenis } from "@/hooks/useLenis";
 import { gsap } from "@/lib/gsap/registerPlugins";
 import { X, ArrowUpRight } from "lucide-react";
+import { LuffyFloat } from "@/components/ui/LuffyFloat";
 
 interface MenuOverlayProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const GhostIcon = () => (
-  <svg
-    width="40"
-    height="40"
-    viewBox="0 0 40 40"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M20 0C8.954 0 0 8.954 0 20v20l6.667-6.667L13.333 40l6.667-6.667L26.667 40l6.667-6.667L40 40V20C40 8.954 31.046 0 20 0z"
-      fill="#FF0000"
-    />
-    <circle cx="12" cy="16" r="4" fill="white" />
-    <circle cx="28" cy="16" r="4" fill="white" />
-    <circle cx="14" cy="16" r="2" fill="#0000FF" />
-    <circle cx="30" cy="16" r="2" fill="#0000FF" />
-  </svg>
-);
+
 
 export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -248,9 +232,9 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           </a>
         </div>
 
-        {/* Pacman Icon */}
-        <div className="absolute bottom-6 right-6 lg:bottom-12 lg:right-12 text-white menu-footer-item">
-          <GhostIcon />
+        {/* Luffy Float */}
+        <div className="absolute bottom-6 right-6 lg:bottom-12 lg:right-12 menu-footer-item">
+          <LuffyFloat />
         </div>
       </div>
     </div>
