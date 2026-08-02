@@ -37,17 +37,22 @@ export function TechnologyForm({ initialData }: TechnologyFormProps) {
   const onSubmit = (data: TechnologyFormValues) => {
     setErrorMsg(null);
     startTransition(async () => {
-      let result;
-      if (initialData) {
-        result = await updateTechnology(initialData._id, data);
-      } else {
-        result = await createTechnology(data);
-      }
+      try {
+        let result;
+        if (initialData) {
+          result = await updateTechnology(initialData._id, data);
+        } else {
+          result = await createTechnology(data);
+        }
 
-      if (result.success) {
-        router.push('/admin/technologies');
-      } else {
-        setErrorMsg(result.error || 'An error occurred');
+        if (result.success) {
+          router.push('/admin/technologies');
+        } else {
+          setErrorMsg(result.error || 'An error occurred while saving technology.');
+        }
+      } catch (err: any) {
+        console.error('Technology form submit error:', err);
+        setErrorMsg(err.message || 'An unexpected error occurred while saving.');
       }
     });
   };

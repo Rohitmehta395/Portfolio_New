@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { DataTable, ColumnDef } from '@/features/admin/DataTable';
 import { SerializedTechnology } from '@/lib/validations/technology.schema';
@@ -11,11 +11,21 @@ import { Badge } from '@/components/ui/badge';
 export function TechnologiesClient({ technologies }: { technologies: SerializedTechnology[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleDelete = (id: string) => {
+    setErrorMsg(null);
     if (confirm('Are you sure you want to delete this technology?')) {
       startTransition(async () => {
-        await deleteTechnology(id);
+        try {
+          const res = await deleteTechnology(id);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to delete technology.');
+          }
+        } catch (err: any) {
+          console.error('Delete technology error:', err);
+          setErrorMsg(err.message || 'An error occurred while deleting technology.');
+        }
       });
     }
   };
@@ -59,6 +69,12 @@ export function TechnologiesClient({ technologies }: { technologies: SerializedT
 
   return (
     <div className="space-y-4">
+      {errorMsg && (
+        <div className="p-4 bg-red-100 text-red-900 rounded-md border border-red-200">
+          {errorMsg}
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Technologies</h2>
         <Button onClick={() => router.push('/admin/technologies/create')}>

@@ -36,17 +36,22 @@ export function SkillForm({ initialData }: SkillFormProps) {
   const onSubmit = (data: SkillFormValues) => {
     setErrorMsg(null);
     startTransition(async () => {
-      let result;
-      if (initialData) {
-        result = await updateSkill(initialData._id, data);
-      } else {
-        result = await createSkill(data);
-      }
+      try {
+        let result;
+        if (initialData) {
+          result = await updateSkill(initialData._id, data);
+        } else {
+          result = await createSkill(data);
+        }
 
-      if (result.success) {
-        router.push('/admin/skills');
-      } else {
-        setErrorMsg(result.error || 'An error occurred');
+        if (result.success) {
+          router.push('/admin/skills');
+        } else {
+          setErrorMsg(result.error || 'An error occurred while saving skill.');
+        }
+      } catch (err: any) {
+        console.error('Skill form submit error:', err);
+        setErrorMsg(err.message || 'An unexpected error occurred while saving.');
       }
     });
   };

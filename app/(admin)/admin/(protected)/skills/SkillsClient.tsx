@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { DataTable, ColumnDef } from '@/features/admin/DataTable';
 import { SerializedSkill } from '@/lib/validations/skill.schema';
@@ -11,11 +11,21 @@ import { Badge } from '@/components/ui/badge';
 export function SkillsClient({ skills }: { skills: SerializedSkill[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleDelete = (id: string) => {
+    setErrorMsg(null);
     if (confirm('Are you sure you want to delete this skill?')) {
       startTransition(async () => {
-        await deleteSkill(id);
+        try {
+          const res = await deleteSkill(id);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to delete skill.');
+          }
+        } catch (err: any) {
+          console.error('Delete skill error:', err);
+          setErrorMsg(err.message || 'An error occurred while deleting skill.');
+        }
       });
     }
   };
@@ -54,6 +64,12 @@ export function SkillsClient({ skills }: { skills: SerializedSkill[] }) {
 
   return (
     <div className="space-y-4">
+      {errorMsg && (
+        <div className="p-4 bg-red-100 text-red-900 rounded-md border border-red-200">
+          {errorMsg}
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Skills</h2>
         <Button onClick={() => router.push('/admin/skills/create')}>

@@ -51,17 +51,40 @@ export function BlogForm({ initialData }: BlogFormProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
+    setErrorMsg(null);
 
-    const result = await uploadImageToCloudinary(formData);
-    if (result.success && result.url) {
-      form.setValue('coverImage', result.url, { shouldValidate: true });
-    } else {
-      setErrorMsg(result.error || 'Failed to upload image');
+    // Validate image type
+    if (!file.type.startsWith('image/')) {
+      setErrorMsg('Invalid file type. Please select an image file (PNG, JPG, WebP, SVG, etc.).');
+      e.target.value = '';
+      return;
     }
-    setUploading(false);
+
+    // Validate file size (5MB max)
+    const MAX_SIZE_MB = 5;
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      setErrorMsg(`Image size exceeds ${MAX_SIZE_MB}MB limit (${(file.size / (1024 * 1024)).toFixed(2)}MB). Please choose a smaller image or paste an image URL.`);
+      e.target.value = '';
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const result = await uploadImageToCloudinary(formData);
+      if (result.success && result.url) {
+        form.setValue('coverImage', result.url, { shouldValidate: true });
+      } else {
+        setErrorMsg(result.error || 'Failed to upload image. Please try again.');
+      }
+    } catch (err: any) {
+      console.error('Image upload exception:', err);
+      setErrorMsg(err.message || 'An unexpected error occurred during image upload.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const autoGenerateSlug = () => {
@@ -77,29 +100,34 @@ export function BlogForm({ initialData }: BlogFormProps) {
   const onSubmit = (data: BlogFormValues) => {
     setErrorMsg(null);
     startTransition(async () => {
-      // Process tags
-      const tagsArray = tagsInput
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-      data.tags = tagsArray;
+      try {
+        // Process tags
+        const tagsArray = tagsInput
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean);
+        data.tags = tagsArray;
 
-      // Handle publishedAt
-      if (data.published && (!data.publishedAt || data.publishedAt.trim() === '')) {
-        data.publishedAt = new Date().toISOString();
-      }
+        // Handle publishedAt
+        if (data.published && (!data.publishedAt || data.publishedAt.trim() === '')) {
+          data.publishedAt = new Date().toISOString();
+        }
 
-      let result;
-      if (initialData) {
-        result = await updateBlogPost(initialData._id, data);
-      } else {
-        result = await createBlogPost(data);
-      }
+        let result;
+        if (initialData) {
+          result = await updateBlogPost(initialData._id, data);
+        } else {
+          result = await createBlogPost(data);
+        }
 
-      if (result.success) {
-        router.push('/admin/blog');
-      } else {
-        setErrorMsg(result.error || 'An error occurred');
+        if (result.success) {
+          router.push('/admin/blog');
+        } else {
+          setErrorMsg(result.error || 'An error occurred while saving the blog post.');
+        }
+      } catch (err: any) {
+        console.error('Blog form submit error:', err);
+        setErrorMsg(err.message || 'An unexpected error occurred while saving.');
       }
     });
   };

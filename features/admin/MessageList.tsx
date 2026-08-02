@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { SerializedMessage } from '@/actions/message.actions';
 import { markAsRead, deleteMessage } from '@/actions/message.actions';
 import { Button } from '@/components/ui/button';
@@ -15,17 +15,36 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
  */
 export function MessageList({ messages }: { messages: SerializedMessage[] }) {
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleMarkAsRead = (id: string) => {
+    setErrorMsg(null);
     startTransition(async () => {
-      await markAsRead(id);
+      try {
+        const res = await markAsRead(id);
+        if (!res.success) {
+          setErrorMsg(res.error || 'Failed to mark message as read.');
+        }
+      } catch (err: any) {
+        console.error('Mark as read error:', err);
+        setErrorMsg(err.message || 'An error occurred while updating message.');
+      }
     });
   };
 
   const handleDelete = (id: string) => {
+    setErrorMsg(null);
     if (confirm('Are you sure you want to permanently delete this message?')) {
       startTransition(async () => {
-        await deleteMessage(id);
+        try {
+          const res = await deleteMessage(id);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to delete message.');
+          }
+        } catch (err: any) {
+          console.error('Delete message error:', err);
+          setErrorMsg(err.message || 'An error occurred while deleting message.');
+        }
       });
     }
   };
@@ -40,6 +59,12 @@ export function MessageList({ messages }: { messages: SerializedMessage[] }) {
 
   return (
     <div className="space-y-4">
+      {errorMsg && (
+        <div className="p-4 bg-red-100 text-red-900 rounded-md border border-red-200">
+          {errorMsg}
+        </div>
+      )}
+
       {messages.map((msg) => (
         <Card key={msg._id} className={msg.read ? 'opacity-70 bg-muted/40' : 'border-l-4 border-l-blue-500 bg-muted'}>
           <CardHeader className="pb-3 flex flex-row justify-between items-start">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DataTable, ColumnDef } from '@/features/admin/DataTable';
@@ -13,17 +13,36 @@ import { Badge } from '@/components/ui/badge';
 export function ProjectsClient({ projects }: { projects: SerializedProject[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleToggle = (id: string, field: 'published' | 'featured', value: boolean) => {
+    setErrorMsg(null);
     startTransition(async () => {
-      await toggleProjectField(id, field, value);
+      try {
+        const res = await toggleProjectField(id, field, value);
+        if (!res.success) {
+          setErrorMsg(res.error || `Failed to update ${field} status.`);
+        }
+      } catch (err: any) {
+        console.error('Toggle project field error:', err);
+        setErrorMsg(err.message || 'An error occurred while updating status.');
+      }
     });
   };
 
   const handleDelete = (id: string) => {
+    setErrorMsg(null);
     if (confirm('Are you sure you want to delete this project? This will also delete any linked Case Study.')) {
       startTransition(async () => {
-        await deleteProject(id);
+        try {
+          const res = await deleteProject(id);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to delete project.');
+          }
+        } catch (err: any) {
+          console.error('Delete project error:', err);
+          setErrorMsg(err.message || 'An error occurred while deleting project.');
+        }
       });
     }
   };
@@ -89,6 +108,12 @@ export function ProjectsClient({ projects }: { projects: SerializedProject[] }) 
 
   return (
     <div className="space-y-4">
+      {errorMsg && (
+        <div className="p-4 bg-red-100 text-red-900 rounded-md border border-red-200">
+          {errorMsg}
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Projects</h2>
         <Button onClick={() => router.push('/admin/projects/create')}>

@@ -54,40 +54,68 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
+    setErrorMsg(null);
 
-    const result = await uploadImageToCloudinary(formData);
-    if (result.success && result.url) {
-      form.setValue('coverImage', result.url, { shouldValidate: true });
-    } else {
-      setErrorMsg(result.error || 'Failed to upload image');
+    // Validate image type
+    if (!file.type.startsWith('image/')) {
+      setErrorMsg('Invalid file type. Please select an image file (PNG, JPG, WebP, SVG, etc.).');
+      e.target.value = '';
+      return;
     }
-    setUploading(false);
+
+    // Validate file size (5MB max)
+    const MAX_SIZE_MB = 5;
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      setErrorMsg(`Image size exceeds ${MAX_SIZE_MB}MB limit (${(file.size / (1024 * 1024)).toFixed(2)}MB). Please choose a smaller image or paste an image URL.`);
+      e.target.value = '';
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const result = await uploadImageToCloudinary(formData);
+      if (result.success && result.url) {
+        form.setValue('coverImage', result.url, { shouldValidate: true });
+      } else {
+        setErrorMsg(result.error || 'Failed to upload image. Please try again.');
+      }
+    } catch (err: any) {
+      console.error('Image upload exception:', err);
+      setErrorMsg(err.message || 'An unexpected error occurred during image upload.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const onSubmit = (data: ProjectFormValues) => {
     setErrorMsg(null);
     startTransition(async () => {
-      // Process tech stack before submission
-      const techStackArray = techStackInput
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-      data.techStack = techStackArray;
+      try {
+        // Process tech stack before submission
+        const techStackArray = techStackInput
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean);
+        data.techStack = techStackArray;
 
-      let result;
-      if (initialData) {
-        result = await updateProject(initialData._id, data);
-      } else {
-        result = await createProject(data);
-      }
+        let result;
+        if (initialData) {
+          result = await updateProject(initialData._id, data);
+        } else {
+          result = await createProject(data);
+        }
 
-      if (result.success) {
-        router.push('/admin/projects');
-      } else {
-        setErrorMsg(result.error || 'An error occurred');
+        if (result.success) {
+          router.push('/admin/projects');
+        } else {
+          setErrorMsg(result.error || 'An error occurred while saving the project.');
+        }
+      } catch (err: any) {
+        console.error('Project form submit error:', err);
+        setErrorMsg(err.message || 'An unexpected error occurred while saving.');
       }
     });
   };

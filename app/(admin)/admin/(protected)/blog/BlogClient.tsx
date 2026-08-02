@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { DataTable, ColumnDef } from '@/features/admin/DataTable';
 import { SerializedBlogPost } from '@/lib/validations/blog.schema';
@@ -11,19 +11,38 @@ import { Switch } from '@/components/ui/switch';
 export function BlogClient({ posts }: { posts: SerializedBlogPost[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleToggle = (id: string, field: string, value: boolean) => {
     if (field === 'published') {
+      setErrorMsg(null);
       startTransition(async () => {
-        await togglePublish(id, value);
+        try {
+          const res = await togglePublish(id, value);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to update publish status.');
+          }
+        } catch (err: any) {
+          console.error('Toggle blog publish error:', err);
+          setErrorMsg(err.message || 'An error occurred while updating status.');
+        }
       });
     }
   };
 
   const handleDelete = (id: string) => {
+    setErrorMsg(null);
     if (confirm('Are you sure you want to delete this blog post?')) {
       startTransition(async () => {
-        await deleteBlogPost(id);
+        try {
+          const res = await deleteBlogPost(id);
+          if (!res.success) {
+            setErrorMsg(res.error || 'Failed to delete blog post.');
+          }
+        } catch (err: any) {
+          console.error('Delete blog post error:', err);
+          setErrorMsg(err.message || 'An error occurred while deleting blog post.');
+        }
       });
     }
   };
@@ -77,6 +96,12 @@ export function BlogClient({ posts }: { posts: SerializedBlogPost[] }) {
 
   return (
     <div className="space-y-4">
+      {errorMsg && (
+        <div className="p-4 bg-red-100 text-red-900 rounded-md border border-red-200">
+          {errorMsg}
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Blog Posts</h2>
         <Button onClick={() => router.push('/admin/blog/create')}>
