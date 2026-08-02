@@ -29,7 +29,7 @@ export default async function WorksPage() {
   const projects = await getProjects();
 
   return (
-    <main className="min-h-screen pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-12 select-none">
+    <main className="min-h-screen pb-24 px-2 sm:px-4 lg:px-6 max-w-[1440px] mx-auto flex flex-col gap-12 select-none">
       {/* Page Hero Section */}
       <PageHero
         title="My"
@@ -39,28 +39,7 @@ export default async function WorksPage() {
 
       {/* Interactive Filterable Projects Grid */}
       <ProjectGrid initialProjects={projects} />
-
-      {/* Closing CTA Banner (Links to /contact - Contact Page will be built in Phase 15) */}
-      <div className="rounded-3xl border border-border bg-card/80 p-8 sm:p-12 text-center flex flex-col items-center gap-6 mt-8">
-        <div className="flex flex-col gap-2">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-emerald-400">
-            Have a project in mind?
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Let's build something exceptional together.
-          </h2>
-        </div>
-        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
-          Available for technical advisory, contract engineering, and full-time leadership roles worldwide.
-        </p>
-        <Link
-          href="/contact"
-          className="group inline-flex items-center gap-3 rounded-full bg-foreground px-8 py-4 text-sm font-semibold text-background hover:bg-neutral-200 transition-all shadow-xl hover:shadow-white/10"
-        >
-          <span>Get in Touch</span>
-          <span className="transition-transform group-hover:translate-x-1">→</span>
-        </Link>
-      </div>
     </main>
   );
 }
+
