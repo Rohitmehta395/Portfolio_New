@@ -24,7 +24,6 @@ const BlogPostSchema = new Schema<IBlogPost>(
       type: String,
       required: [true, 'Slug is required'],
       unique: true,
-      index: true,
     },
     excerpt: {
       type: String,

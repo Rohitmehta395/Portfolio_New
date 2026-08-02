@@ -45,7 +45,6 @@ const CaseStudySchema = new Schema<ICaseStudy>(
       ref: 'Project',
       required: [true, 'Project reference is required'],
       unique: true,
-      index: true,
     },
     problem: { type: String },
     approach: { type: String },
@@ -59,7 +58,6 @@ const CaseStudySchema = new Schema<ICaseStudy>(
   }
 );
 
-CaseStudySchema.index({ projectRef: 1 }, { unique: true });
 
 export const CaseStudy: Model<ICaseStudy> =
   mongoose.models.CaseStudy || mongoose.model<ICaseStudy>('CaseStudy', CaseStudySchema);

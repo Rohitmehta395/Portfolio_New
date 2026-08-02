@@ -20,7 +20,6 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: [true, 'Email is required'],
       unique: true,
-      index: true,
     },
     image: {
       type: String,
@@ -42,7 +41,6 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
-UserSchema.index({ email: 1 }, { unique: true });
 
 export const User: Model<IUser> =
   mongoose.models.User || mongoose.model<IUser>('User', UserSchema);

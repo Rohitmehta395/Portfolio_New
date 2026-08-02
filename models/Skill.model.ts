@@ -14,7 +14,6 @@ const SkillSchema = new Schema<ISkill>(
       type: String,
       required: [true, 'Skill name is required'],
       unique: true,
-      index: true,
     },
     category: {
       type: String,
@@ -32,7 +31,6 @@ const SkillSchema = new Schema<ISkill>(
   }
 );
 
-SkillSchema.index({ name: 1 }, { unique: true });
 
 export const Skill: Model<ISkill> =
   mongoose.models.Skill || mongoose.model<ISkill>('Skill', SkillSchema);

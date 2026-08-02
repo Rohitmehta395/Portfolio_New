@@ -15,7 +15,6 @@ const TechnologySchema = new Schema<ITechnology>(
       type: String,
       required: [true, 'Technology name is required'],
       unique: true,
-      index: true,
     },
     icon: {
       type: String,

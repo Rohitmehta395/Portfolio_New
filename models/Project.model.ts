@@ -28,7 +28,6 @@ const ProjectSchema = new Schema<IProject>(
       type: String,
       required: [true, 'Slug is required'],
       unique: true,
-      index: true,
     },
     category: {
       type: String,
