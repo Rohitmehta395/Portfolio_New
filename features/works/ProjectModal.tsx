@@ -126,10 +126,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       TECHNOLOGY STACK
                     </h4>
 
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech) => (
+                    <div
+                      onWheel={(e) => e.stopPropagation()}
+                      className="flex flex-wrap gap-2 max-h-32 sm:max-h-36 overflow-y-auto overscroll-contain pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                      {project.techStack.map((tech, index) => (
                         <span
-                          key={tech}
+                          key={`${tech}-${index}`}
                           className="inline-flex items-center rounded-md border border-neutral-200/80 dark:border-neutral-800 bg-neutral-100/90 dark:bg-neutral-800/80 px-2.5 py-1 text-[11px] font-mono font-medium text-neutral-700 dark:text-neutral-300"
                         >
                           {tech}

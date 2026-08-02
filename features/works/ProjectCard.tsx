@@ -45,9 +45,9 @@ export function ProjectCard({ project, onSelect, className = '' }: ProjectCardPr
         {/* Tech Stack Badges */}
         {project.techStack && project.techStack.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.techStack.map((tech) => (
+            {project.techStack.map((tech, index) => (
               <span
-                key={tech}
+                key={`${tech}-${index}`}
                 className="inline-flex items-center rounded-md border border-neutral-200/80 bg-neutral-100/70 dark:border-neutral-800 dark:bg-neutral-900/60 px-2.5 py-1 text-[10px] font-mono font-medium tracking-wider uppercase text-neutral-600 dark:text-neutral-400"
               >
                 {tech}
