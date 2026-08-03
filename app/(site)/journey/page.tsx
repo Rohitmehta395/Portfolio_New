@@ -5,6 +5,7 @@ import { ExperienceTimeline } from '@/features/experience/ExperienceTimeline';
 import { PageHero } from '@/components/ui/PageHero';
 import { AboutMe } from '@/features/about/AboutMe';
 import { Education } from '@/features/about/Education';
+import { TechMarquee } from '@/features/marquee/TechMarquee';
 
 export const metadata: Metadata = {
   title: 'My Journey',
@@ -37,7 +38,8 @@ export default function JourneyPage() {
       />
       <AboutMe />
       <Education />
-      <ExperienceTimeline hideHeader />
+      <TechMarquee variant="card" />
+      <ExperienceTimeline />
     </main>
   );
 }

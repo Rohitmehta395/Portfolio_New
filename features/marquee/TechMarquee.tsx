@@ -9,6 +9,10 @@ interface TechItem {
   icon?: string;
 }
 
+interface TechMarqueeProps {
+  variant?: 'default' | 'card';
+}
+
 async function getTechnologies(): Promise<TechItem[]> {
   try {
     await connectDB();
@@ -22,12 +26,29 @@ async function getTechnologies(): Promise<TechItem[]> {
 
 /**
  * Server Component — fetches technology data from MongoDB and renders
- * the editorial Technologies grid section with the "Technologies / work with" heading.
+ * the editorial Technologies grid section.
  */
-export async function TechMarquee() {
+export async function TechMarquee({ variant = 'default' }: TechMarqueeProps) {
   const technologies = await getTechnologies();
 
   if (technologies.length === 0) return null;
+
+  if (variant === 'card') {
+    return (
+      <section
+        className="w-full bg-background py-16 px-6 md:px-14"
+        style={{ fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif" }}
+      >
+        <h2 className="mb-10 text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap justify-center items-center gap-x-3 gap-y-0 leading-tight text-center">
+          <span className="font-cursive text-4xl md:text-7xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-2 md:mt-0 pt-2 sm:pt-4 tracking-normal">
+            Technologies
+          </span>{" "}
+          I work with
+        </h2>
+        <TechGrid technologies={technologies} />
+      </section>
+    );
+  }
 
   return (
     <section
