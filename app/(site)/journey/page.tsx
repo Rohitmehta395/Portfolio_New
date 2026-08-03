@@ -4,6 +4,7 @@ import { siteConfig } from '@/config/site.config';
 import { ExperienceTimeline } from '@/features/experience/ExperienceTimeline';
 import { PageHero } from '@/components/ui/PageHero';
 import { AboutMe } from '@/features/about/AboutMe';
+import { Education } from '@/features/about/Education';
 
 export const metadata: Metadata = {
   title: 'My Journey',
@@ -35,6 +36,7 @@ export default function JourneyPage() {
         subtitle="A detailed narrative of my software engineering career, milestones, and personal evolution."
       />
       <AboutMe />
+      <Education />
       <ExperienceTimeline hideHeader />
     </main>
   );
