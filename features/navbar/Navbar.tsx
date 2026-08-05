@@ -14,7 +14,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 backdrop-blur-md bg-background/40 transition-all">
+      <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:pr-20 backdrop-blur-md bg-background/40 transition-all">
         <Link
           href="/"
           onClick={closeMenu}
