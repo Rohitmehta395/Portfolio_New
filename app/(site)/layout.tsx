@@ -4,6 +4,7 @@ import LenisProvider from '@/components/providers/LenisProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Navbar } from '@/features/navbar/Navbar';
 import { Footer } from '@/features/footer/Footer';
+import { SpiderWebScrollbar } from '@/features/spider-scroll/SpiderWebScrollbar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default function SiteLayout({
           </div>
 
           <Footer />
+          <SpiderWebScrollbar />
         </div>
       </ThemeProvider>
     </LenisProvider>
