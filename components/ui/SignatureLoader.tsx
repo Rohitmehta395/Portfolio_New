@@ -10,7 +10,7 @@ interface SignatureLoaderProps {
 
 export function SignatureLoader({
   onLoadingComplete,
-  minimumDuration = 1800,
+  minimumDuration = 1350,
 }: SignatureLoaderProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
@@ -50,17 +50,17 @@ export function SignatureLoader({
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.03,
-            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+            scale: 1.02,
+            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
           }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background text-foreground transition-colors duration-300 pointer-events-auto select-none overflow-hidden touch-none"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-background text-foreground transition-colors duration-300 pointer-events-auto select-none overflow-hidden touch-none"
         >
           {/* Subtle Ambient Background Glow */}
           <div className="absolute inset-0 bg-radial from-primary/10 via-transparent to-transparent opacity-60 blur-3xl pointer-events-none" />
 
           <div className="relative flex flex-col items-center justify-center">
             {/* Project Font ("Great Vibes") Animated Text Container */}
-            <div className="relative w-[300px] sm:w-[420px] md:w-[520px] h-[160px] sm:h-[200px] flex items-center justify-center">
+            <div className="relative w-[280px] sm:w-[400px] md:w-[500px] h-[150px] sm:h-[190px] flex items-center justify-center">
               <svg
                 viewBox="0 0 600 200"
                 className="w-full h-full overflow-visible drop-shadow-[0_0_20px_rgba(255,255,255,0.12)] dark:drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]"
@@ -81,8 +81,8 @@ export function SignatureLoader({
                   initial={{ strokeDasharray: 1200, strokeDashoffset: 1200, opacity: 0 }}
                   animate={{ strokeDashoffset: 0, opacity: 1 }}
                   transition={{
-                    strokeDashoffset: { duration: 1.25, ease: [0.65, 0, 0.35, 1] },
-                    opacity: { duration: 0.15 },
+                    strokeDashoffset: { duration: 0.85, ease: [0.65, 0, 0.35, 1] },
+                    opacity: { duration: 0.1 },
                   }}
                 >
                   Rohit
@@ -103,7 +103,7 @@ export function SignatureLoader({
                   initial={{ strokeDasharray: 1200, strokeDashoffset: 1200, opacity: 0 }}
                   animate={{ strokeDashoffset: 0, opacity: 1 }}
                   transition={{
-                    strokeDashoffset: { duration: 1.2, ease: [0.65, 0, 0.35, 1] },
+                    strokeDashoffset: { duration: 0.8, ease: [0.65, 0, 0.35, 1] },
                     opacity: { duration: 0.1 },
                   }}
                 >
@@ -120,7 +120,7 @@ export function SignatureLoader({
                   fill="currentColor"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.45, delay: 0.95 }}
+                  transition={{ duration: 0.35, delay: 0.65 }}
                 >
                   Rohit
                 </motion.text>
@@ -131,12 +131,12 @@ export function SignatureLoader({
             <motion.div
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 0.7 }}
-              transition={{ duration: 1.3, ease: 'easeInOut' }}
-              className="mt-4 w-28 h-[2px] bg-foreground/20 rounded-full overflow-hidden origin-center"
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
+              className="mt-3 w-24 h-[2px] bg-foreground/20 rounded-full overflow-hidden origin-center"
             >
               <motion.div
                 animate={{ x: ['-100%', '100%'] }}
-                transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+                transition={{ repeat: Infinity, duration: 0.75, ease: 'linear' }}
                 className="w-full h-full bg-foreground"
               />
             </motion.div>

@@ -8,20 +8,30 @@ interface SignatureLoaderWrapperProps {
 }
 
 export function SignatureLoaderWrapper({ children }: SignatureLoaderWrapperProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [, setIsLoaded] = useState(false);
+
+  const handleLoadingComplete = () => {
+    setIsLoaded(true);
+
+    // Refresh GSAP ScrollTrigger & dispatch window resize after loader unmounts
+    // to ensure pinned sections like CapabilitiesShowcase ("What I Do") measure correctly
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+        try {
+          // Dynamic import / check GSAP ScrollTrigger
+          import('@/lib/gsap/registerPlugins').then(({ ScrollTrigger }) => {
+            ScrollTrigger.refresh();
+          });
+        } catch {}
+      }, 50);
+    }
+  };
 
   return (
     <>
-      <SignatureLoader onLoadingComplete={() => setIsLoaded(true)} />
-      <div
-        className={`flex-1 flex flex-col transition-all duration-700 ease-out ${
-          isLoaded
-            ? 'opacity-100 scale-100 translate-y-0'
-            : 'opacity-0 scale-[0.985] translate-y-2 pointer-events-none max-h-screen overflow-hidden'
-        }`}
-      >
-        {children}
-      </div>
+      <SignatureLoader onLoadingComplete={handleLoadingComplete} minimumDuration={1350} />
+      {children}
     </>
   );
 }
