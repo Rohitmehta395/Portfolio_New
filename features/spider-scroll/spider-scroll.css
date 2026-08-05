@@ -40,9 +40,20 @@
   transition: filter 0.3s ease;
 }
 
+/* Dark mode: invert black silhouettes → white */
+:is(.dark) .spider-scroll-sidebar .spidey-img,
+:is(.dark) .spider-scroll-sidebar .gwen-img {
+  filter: invert(1) drop-shadow(0 0 6px var(--spider-glow));
+}
+
 .spider-scroll-sidebar .spidey-img:hover,
 .spider-scroll-sidebar .gwen-img:hover {
   filter: drop-shadow(0 0 12px var(--spider-glow));
+}
+
+:is(.dark) .spider-scroll-sidebar .spidey-img:hover,
+:is(.dark) .spider-scroll-sidebar .gwen-img:hover {
+  filter: invert(1) drop-shadow(0 0 12px var(--spider-glow));
 }
 
 /* Spider-Man idle bob */
