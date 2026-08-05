@@ -20,7 +20,7 @@ export function HandwrittenText({
   children,
   className = '',
   delay = 0,
-  duration = 0.65,
+  duration = 0.45,
   style,
 }: HandwrittenTextProps) {
   return (
