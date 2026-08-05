@@ -21,7 +21,7 @@ import './spider-scroll.css';
 const IMAGE_SIZE = 110;
 const SPIDER_RADIUS = 5;
 const LERP_FACTOR = 0.08;
-const BG_SAMPLE_INTERVAL_MS = 200;
+const BG_SAMPLE_INTERVAL_MS = 50;
 const BG_SAMPLE_POINTS = 20;        // number of points sampled along the canvas height
 const DARK_BG_THRESHOLD = 0.45;     // luminance below this = dark background
 
@@ -67,10 +67,30 @@ function smoothNoise(y: number, seed: number, freq: number): number {
    Background luminance sampling
    ================================================================ */
 
-function parseColor(color: string): [number, number, number] | null {
-  const match = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
-  if (match) return [+match[1], +match[2], +match[3]];
-  return null;
+/**
+ * Universal CSS color → RGB parser using a 1×1 offscreen canvas.
+ * Works with ANY color format: rgb, rgba, oklch, hsl, hex, named, etc.
+ * The canvas engine normalizes everything to RGBA pixel data internally.
+ */
+let _colorCanvas: HTMLCanvasElement | null = null;
+let _colorCtx: CanvasRenderingContext2D | null = null;
+
+function parseAnyColor(color: string): [number, number, number, number] | null {
+  if (!_colorCanvas) {
+    _colorCanvas = document.createElement('canvas');
+    _colorCanvas.width = 1;
+    _colorCanvas.height = 1;
+    _colorCtx = _colorCanvas.getContext('2d', { willReadFrequently: true });
+  }
+  if (!_colorCtx) return null;
+
+  _colorCtx.clearRect(0, 0, 1, 1);
+  _colorCtx.fillStyle = '#000'; // reset to known state
+  _colorCtx.fillStyle = color;  // set the actual color (browser normalizes)
+  _colorCtx.fillRect(0, 0, 1, 1);
+
+  const data = _colorCtx.getImageData(0, 0, 1, 1).data;
+  return [data[0], data[1], data[2], data[3]];
 }
 
 function relativeLuminance(r: number, g: number, b: number): number {
@@ -86,8 +106,11 @@ function sampleBgLuminanceAt(x: number, y: number, skipElements: Set<Element>): 
     if (skipElements.has(el) || el.closest('.spider-scroll-sidebar')) continue;
     const bg = getComputedStyle(el).backgroundColor;
     if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') continue;
-    const rgb = parseColor(bg);
-    if (rgb) return relativeLuminance(...rgb);
+
+    const rgba = parseAnyColor(bg);
+    if (rgba && rgba[3] > 10) { // ignore near-transparent
+      return relativeLuminance(rgba[0], rgba[1], rgba[2]);
+    }
   }
   return 1; // default to light
 }

@@ -37,7 +37,7 @@
   pointer-events: auto;
   z-index: 2;
   filter: drop-shadow(0 0 6px var(--spider-glow));
-  transition: filter 0.4s ease;
+  transition: filter 0.1s ease;
 }
 
 /* Auto-invert when sitting on a dark background (set by JS) */
