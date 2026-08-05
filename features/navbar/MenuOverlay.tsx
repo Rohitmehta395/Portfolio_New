@@ -11,6 +11,7 @@ import { useLenis } from "@/hooks/useLenis";
 import { gsap } from "@/lib/gsap/registerPlugins";
 import { X, ArrowUpRight } from "lucide-react";
 import { LuffyFloat } from "@/components/ui/LuffyFloat";
+import { HandwrittenText } from "@/components/ui/HandwrittenText";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -128,7 +129,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
         <div className="w-full flex flex-col items-center justify-center z-10 relative">
           <div className="text-[clamp(1.25rem,2.5vw,2.5rem)] font-bold uppercase leading-tight tracking-tight flex flex-col items-center text-center gap-3 md:gap-4 w-full">
             <div className="left-panel-line flex items-center justify-center gap-2">
-              HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 -mt-1 md:-mt-2 text-black/90">{siteConfig.author}</span>
+              HELLO, I&apos;M <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 -mt-1 md:-mt-2 text-black/90"><HandwrittenText>{siteConfig.author}</HandwrittenText></span>
             </div>
             
             <div className="left-panel-line flex items-center justify-center gap-2 md:gap-3 flex-wrap">
@@ -144,7 +145,7 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               <span className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-[#8b5cf6] rounded-full text-white flex-shrink-0 shadow-sm">
                 <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" strokeWidth={2.5} />
               </span>
-              CRAFTS <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 mt-1 text-black/90">creative</span>
+              CRAFTS <span className="font-cursive lowercase font-normal text-[clamp(1.75rem,3.5vw,3.5rem)] tracking-normal transform -rotate-2 mt-1 text-black/90"><HandwrittenText>creative</HandwrittenText></span>
             </div>
             
             <div className="left-panel-line flex items-center justify-center gap-2 md:gap-3 flex-wrap">

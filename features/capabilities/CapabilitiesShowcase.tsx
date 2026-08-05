@@ -5,6 +5,8 @@ import { useGsapContext } from "@/hooks/useGsapContext";
 import { gsap, ScrollTrigger } from "@/lib/gsap/registerPlugins";
 import { CAPABILITIES_DATA } from "./capabilities.data";
 import { CapabilityCard } from "./CapabilityCard";
+import { HandwrittenText } from "@/components/ui/HandwrittenText";
+
 
 export function CapabilitiesShowcase() {
   const pinSectionRef = useRef<HTMLDivElement>(null);
@@ -165,7 +167,7 @@ export function CapabilitiesShowcase() {
           <h2 className="font-display text-4xl font-extrabold tracking-tight text-black dark:text-white flex items-center justify-center gap-3 transition-colors">
             What{" "}
             <span className="font-cursive text-indigo-500 dark:text-[#b19df7] font-light lowercase text-5xl -mt-2 transition-colors">
-              I do
+              <HandwrittenText>I do</HandwrittenText>
             </span>
           </h2>
         </div>
@@ -233,7 +235,7 @@ export function CapabilitiesShowcase() {
                 className="font-cursive text-[#b19df7] font-light text-7xl lg:text-8xl xl:text-9xl lowercase"
                 style={{ fontFamily: "var(--font-cursive, cursive)" }}
               >
-                I do
+                <HandwrittenText>I do</HandwrittenText>
               </span>
             </h2>
 

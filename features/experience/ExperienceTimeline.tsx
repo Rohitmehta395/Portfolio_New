@@ -3,6 +3,7 @@ import connectDB from '@/lib/db/connect';
 import Experience from '@/models/Experience.model';
 import { SerializedExperience } from './ExperienceCard';
 import { ExperienceTimelineAnimated } from './ExperienceTimelineAnimated';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 interface ExperienceTimelineProps {
   limit?: number;
@@ -43,7 +44,7 @@ export async function ExperienceTimeline({ limit, hideHeader }: ExperienceTimeli
                 className="font-light italic text-[#9b87f5]" 
                 style={{ fontFamily: 'var(--font-cursive, cursive)' }}
               >
-                Experience
+                <HandwrittenText>Experience</HandwrittenText>
               </span>
             </h2>
           </div>

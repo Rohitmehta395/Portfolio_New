@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { FaGraduationCap } from 'react-icons/fa';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 const educationData = [
   {
@@ -83,7 +84,7 @@ export function Education() {
               className="font-light italic text-[#8B5CF6] dark:text-[#a78bfa]"
               style={{ fontFamily: 'var(--font-cursive, cursive)' }}
             >
-              Education
+              <HandwrittenText>Education</HandwrittenText>
             </span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-lg text-center">

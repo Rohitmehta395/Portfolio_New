@@ -18,6 +18,20 @@ export function SignatureLoader({
   useEffect(() => {
     setIsMounted(true);
 
+    const hasSeenLoader =
+      typeof window !== 'undefined' &&
+      sessionStorage.getItem('has_seen_signature_loader');
+
+    if (hasSeenLoader) {
+      setIsVisible(false);
+      if (onLoadingComplete) onLoadingComplete();
+      return;
+    }
+
+    try {
+      sessionStorage.setItem('has_seen_signature_loader', 'true');
+    } catch {}
+
     // Scroll to top and lock page scrolling while loader is active
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.body.style.overflow = 'hidden';
@@ -32,9 +46,9 @@ export function SignatureLoader({
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     };
-  }, [minimumDuration]);
+  }, [minimumDuration, onLoadingComplete]);
 
-  if (!isMounted) return null;
+  if (!isVisible) return null;
 
   return (
     <AnimatePresence

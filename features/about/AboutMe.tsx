@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, type Variants } from 'framer-motion';
 import { SiLeetcode, SiGeeksforgeeks } from 'react-icons/si';
 import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 const containerVariants: Variants = {
   hidden: {},
@@ -61,7 +62,7 @@ export function AboutMe() {
               className="font-light italic text-[#9b87f5]"
               style={{ fontFamily: 'var(--font-cursive, cursive)' }}
             >
-              Me
+              <HandwrittenText>Me</HandwrittenText>
             </span>
           </h2>
         </motion.div>

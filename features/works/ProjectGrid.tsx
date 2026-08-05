@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { SerializedProject } from '@/lib/validations/project.schema';
 import { ProjectCard } from './ProjectCard';
 import { ProjectModal } from './ProjectModal';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 interface ProjectGridProps {
   initialProjects: SerializedProject[];
@@ -110,7 +111,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                     className="font-cursive text-[#8B5CF6] dark:text-[#a78bfa] text-4xl sm:text-5xl font-normal py-1"
                     style={{ fontFamily: 'var(--font-cursive, cursive)' }}
                   >
-                    connect!
+                    <HandwrittenText>connect!</HandwrittenText>
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground max-w-[220px] leading-relaxed">

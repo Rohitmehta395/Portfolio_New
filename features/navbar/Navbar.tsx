@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site.config';
 import { MenuOverlay } from './MenuOverlay';
 import { ThemeToggle } from './ThemeToggle';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ export function Navbar() {
           onClick={closeMenu}
           className="group flex items-center font-cursive text-4xl text-foreground hover:opacity-80 transition-opacity"
         >
-          <span>{siteConfig.author}</span>
+          <span><HandwrittenText>{siteConfig.author}</HandwrittenText></span>
         </Link>
 
         <div className="flex items-center gap-4">

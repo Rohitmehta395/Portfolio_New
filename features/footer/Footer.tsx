@@ -7,6 +7,7 @@ import { siteConfig } from '@/config/site.config';
 import { ArrowUp, Copy, Check } from 'lucide-react';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { LuffyFloat } from '@/components/ui/LuffyFloat';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 export function Footer() {
   const { copied, copy } = useCopyToClipboard(2500);
@@ -123,7 +124,7 @@ export function Footer() {
         <div className="flex items-end justify-between relative">
           {/* Large Name */}
           <h1 className="font-cursive text-[6rem] xs:text-[7.5rem] sm:text-9xl md:text-[14rem] lg:text-[18rem] leading-none tracking-tight -mb-8 md:-mb-12 whitespace-nowrap text-white relative z-10">
-            {siteConfig.author}
+            <HandwrittenText>{siteConfig.author}</HandwrittenText>
           </h1>
 
           {/* Scroll to top button - Mobile */}

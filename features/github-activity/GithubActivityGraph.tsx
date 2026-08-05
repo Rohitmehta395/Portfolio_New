@@ -7,6 +7,7 @@ import {
 import { ContributionCell } from "./ContributionCell";
 import { ReactiveEyes } from "./ReactiveEyes";
 import { YearSelector } from "./YearSelector";
+import { HandwrittenText } from "@/components/ui/HandwrittenText";
 
 const MONTH_NAMES = [
   "Jan",
@@ -172,7 +173,7 @@ export async function GithubActivityGraph({ year }: { year?: number }) {
         <h2 className="text-3xl md:text-4xl lg:text-[3.5rem] font-bold tracking-tight text-foreground flex flex-wrap items-center gap-x-3 gap-y-0 leading-tight">
           Want to know about my{" "}
           <span className="font-cursive text-5xl md:text-5xl lg:text-[5rem] font-normal text-[#8B5CF6] -mt-4 md:mt-0 pt-2 sm:pt-4 lowercase tracking-normal">
-            story?
+            <HandwrittenText>story?</HandwrittenText>
           </span>
         </h2>
         <Link

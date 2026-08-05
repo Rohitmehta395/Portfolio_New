@@ -1,6 +1,10 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { siteConfig } from '@/config/site.config';
 import { InlineImageWord } from './InlineImageWord';
 import { ArrowUpRight } from 'lucide-react';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 /**
  * Kinetic Headline typography component.
@@ -8,13 +12,24 @@ import { ArrowUpRight } from 'lucide-react';
  * for coordinated GSAP entrance timeline animation.
  */
 export function KineticHeadline() {
+  const [hasSeenLoader, setHasSeenLoader] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('has_seen_signature_loader')) {
+      setHasSeenLoader(true);
+    }
+  }, []);
+
+  const authorDelay = hasSeenLoader ? 0 : 1.35;
+  const creativeDelay = hasSeenLoader ? 0.05 : 1.4;
+
   return (
     <h1 className="font-display text-3xl min-[400px]:text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] font-bold uppercase tracking-tight leading-[1.1] text-foreground select-none w-full flex flex-col items-center max-w-[100vw] overflow-hidden gap-y-2 sm:gap-y-0">
       {/* Line 1 */}
       <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-y-2">
         <span className="hero-word inline-block mr-2 sm:mr-5">HELLO, I'M</span>
         <span className="hero-word inline-block font-cursive font-normal normal-case tracking-normal text-4xl min-[400px]:text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] pt-2 sm:pt-4">
-          {siteConfig.author}
+          <HandwrittenText delay={authorDelay}>{siteConfig.author}</HandwrittenText>
         </span>
       </div>
 
@@ -46,7 +61,7 @@ export function KineticHeadline() {
         
         <span className="hero-word inline-block ml-2 sm:ml-4 mr-2 sm:mr-4">CRAFTS</span>
         <span className="hero-word inline-block font-cursive font-normal normal-case tracking-normal text-4xl min-[400px]:text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] pt-2 sm:pt-4">
-          creative
+          <HandwrittenText delay={creativeDelay}>creative</HandwrittenText>
         </span>
       </div>
 

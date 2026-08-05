@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { HandwrittenText } from '@/components/ui/HandwrittenText';
 
 interface PageHeroProps {
   /** Main title or first part of title */
@@ -56,7 +57,7 @@ export function PageHero({
               className="font-cursive text-[#8B5CF6] dark:text-[#a78bfa] font-normal text-6xl min-[400px]:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] transform -rotate-1 py-1 leading-none"
               style={{ fontFamily: 'var(--font-cursive, cursive)' }}
             >
-              {secondPart}
+              <HandwrittenText>{secondPart}</HandwrittenText>
             </span>
           )}
         </h1>
