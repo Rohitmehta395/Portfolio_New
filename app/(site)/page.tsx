@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     creator: SEO_DEFAULTS.twitterHandle,
     images: [`${siteConfig.url}/api/og?title=${encodeURIComponent('Creative Software Developer')}`],
   },
+  icons: {
+    icon: '/images/Rohit_Mehta_circle.png',
+    shortcut: '/images/Rohit_Mehta_circle.png',
+    apple: '/images/Rohit_Mehta_circle.png',
+  },
   metadataBase: new URL(siteConfig.url),
 };
 

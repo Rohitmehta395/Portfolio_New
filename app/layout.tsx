@@ -9,6 +9,11 @@ const greatVibes = Great_Vibes({ weight: "400", subsets: ['latin'], variable: '-
 export const metadata: Metadata = {
   title: 'Developer Portfolio',
   description: 'Premium Animated Developer Portfolio',
+  icons: {
+    icon: '/images/Rohit_Mehta_circle.png',
+    shortcut: '/images/Rohit_Mehta_circle.png',
+    apple: '/images/Rohit_Mehta_circle.png',
+  },
 };
 
 export default function RootLayout({
