@@ -12,31 +12,41 @@ import './spider-scroll.css';
    custom scrollbar. Spider-Man at top, Gwen at bottom, with a
    procedurally-generated organic spider silk strand between them.
 
-   The web mimics realistic spider silk: multiple thin threads that
-   twist and braid around each other, with knotted cluster sections
-   at irregular intervals and thinner stretched sections between.
+   Everything — images AND web strands — automatically detects the
+   background behind it at runtime and adapts colors for contrast.
+   Works on any bg, any theme, any section.
    ================================================================ */
 
 // ---- Constants ----
 const IMAGE_SIZE = 110;
 const SPIDER_RADIUS = 5;
 const LERP_FACTOR = 0.08;
+const BG_SAMPLE_INTERVAL_MS = 200;
+const BG_SAMPLE_POINTS = 20;        // number of points sampled along the canvas height
+const DARK_BG_THRESHOLD = 0.45;     // luminance below this = dark background
 
 // Web strand parameters
-const NUM_STRANDS = 5;            // number of individual silk threads
-const KNOT_SPACING_MIN = 60;      // minimum px between knot clusters
-const KNOT_SPACING_MAX = 140;     // maximum px between knot clusters
-const KNOT_HEIGHT = 30;           // vertical extent of a knot cluster
-const STRAND_SPREAD_KNOT = 14;    // max horizontal spread at knots (px from center)
-const STRAND_SPREAD_THIN = 3;     // max horizontal spread in thin sections
-const SEGMENT_STEP = 3;           // px step for drawing strand curves
+const NUM_STRANDS = 5;
+const KNOT_SPACING_MIN = 60;
+const KNOT_SPACING_MAX = 140;
+const KNOT_HEIGHT = 30;
+const STRAND_SPREAD_KNOT = 14;
+const STRAND_SPREAD_THIN = 3;
+const SEGMENT_STEP = 3;
+
+// Strand colors for light and dark backgrounds
+const STRAND_DARK_ON_LIGHT = 'rgba(0, 0, 0, 0.55)';
+const STRAND_DARK_ON_LIGHT_THIN = 'rgba(0, 0, 0, 0.2)';
+const STRAND_LIGHT_ON_DARK = 'rgba(255, 255, 255, 0.55)';
+const STRAND_LIGHT_ON_DARK_THIN = 'rgba(255, 255, 255, 0.2)';
+const GLOW_ON_LIGHT = 'rgba(180, 0, 0, 0.6)';
+const GLOW_ON_DARK = 'rgba(255, 80, 80, 0.6)';
 
 // ---- Helpers ----
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-/** Seeded pseudo-random for consistent geometry across frames */
 function seededRandom(seed: number): () => number {
   let s = seed;
   return () => {
@@ -45,7 +55,6 @@ function seededRandom(seed: number): () => number {
   };
 }
 
-/** Attempt smooth noise-like values for organic curves */
 function smoothNoise(y: number, seed: number, freq: number): number {
   return (
     Math.sin(y * freq + seed) * 0.5 +
@@ -55,12 +64,52 @@ function smoothNoise(y: number, seed: number, freq: number): number {
 }
 
 /* ================================================================
-   Knot Geometry — precomputed once per resize
+   Background luminance sampling
+   ================================================================ */
+
+function parseColor(color: string): [number, number, number] | null {
+  const match = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+  if (match) return [+match[1], +match[2], +match[3]];
+  return null;
+}
+
+function relativeLuminance(r: number, g: number, b: number): number {
+  const [rs, gs, bs] = [r / 255, g / 255, b / 255].map(c =>
+    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4),
+  );
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function sampleBgLuminanceAt(x: number, y: number, skipElements: Set<Element>): number {
+  const stack = document.elementsFromPoint(x, y);
+  for (const el of stack) {
+    if (skipElements.has(el) || el.closest('.spider-scroll-sidebar')) continue;
+    const bg = getComputedStyle(el).backgroundColor;
+    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') continue;
+    const rgb = parseColor(bg);
+    if (rgb) return relativeLuminance(...rgb);
+  }
+  return 1; // default to light
+}
+
+/** Interpolate luminance at any canvas Y from the sampled array */
+function getLuminanceAtY(y: number, samples: Float32Array, canvasHeight: number): number {
+  if (samples.length === 0 || canvasHeight === 0) return 1;
+  const t = (y / canvasHeight) * (samples.length - 1);
+  const i = Math.floor(t);
+  const frac = t - i;
+  const a = samples[Math.min(i, samples.length - 1)];
+  const b = samples[Math.min(i + 1, samples.length - 1)];
+  return a + (b - a) * frac;
+}
+
+/* ================================================================
+   Knot Geometry
    ================================================================ */
 interface Knot {
-  y: number;      // center Y of knot cluster
-  height: number; // vertical size of knot
-  intensity: number; // 0-1 how tangled this knot is
+  y: number;
+  height: number;
+  intensity: number;
 }
 
 function generateKnots(canvasHeight: number, rand: () => number): Knot[] {
@@ -75,7 +124,6 @@ function generateKnots(canvasHeight: number, rand: () => number): Knot[] {
   return knots;
 }
 
-/** Returns the "spread factor" at a given Y — wide at knots, narrow between */
 function spreadAtY(y: number, knots: Knot[]): number {
   let maxInfluence = 0;
   for (const knot of knots) {
@@ -86,7 +134,7 @@ function spreadAtY(y: number, knots: Knot[]): number {
       if (influence > maxInfluence) maxInfluence = influence;
     }
   }
-  return maxInfluence; // 0 = thin section, ~1 = full knot
+  return maxInfluence;
 }
 
 /* ================================================================
@@ -95,12 +143,17 @@ function spreadAtY(y: number, knots: Knot[]): number {
 export function SpiderWebScrollbar() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const spideyRef = useRef<HTMLDivElement>(null);
+  const gwenRef = useRef<HTMLDivElement>(null);
   const animFrameRef = useRef<number>(0);
   const scrollProgressRef = useRef<number>(0);
   const displayProgressRef = useRef<number>(0);
   const canvasSizeRef = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const knotsRef = useRef<Knot[]>([]);
   const startTimeRef = useRef<number>(0);
+  const lastBgSampleRef = useRef<number>(0);
+  // Luminance samples along the canvas height
+  const canvasLuminanceRef = useRef<Float32Array>(new Float32Array(BG_SAMPLE_POINTS));
 
   const lenis = useLenis();
 
@@ -122,6 +175,46 @@ export function SpiderWebScrollbar() {
     };
   }, [lenis]);
 
+  // ---- Background sampling — updates images AND canvas luminance map ----
+  const sampleBackgrounds = useCallback(() => {
+    const sidebar = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!sidebar || !canvas) return;
+
+    // Build skip set
+    const skipSet = new Set<Element>();
+    sidebar.querySelectorAll('*').forEach(el => skipSet.add(el));
+    skipSet.add(sidebar);
+
+    // ---- Sample behind character images ----
+    if (spideyRef.current) {
+      const rect = spideyRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const lum = sampleBgLuminanceAt(cx, cy, skipSet);
+      spideyRef.current.setAttribute('data-on-dark', String(lum < DARK_BG_THRESHOLD));
+    }
+
+    if (gwenRef.current) {
+      const rect = gwenRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const lum = sampleBgLuminanceAt(cx, cy, skipSet);
+      gwenRef.current.setAttribute('data-on-dark', String(lum < DARK_BG_THRESHOLD));
+    }
+
+    // ---- Sample along the canvas height for web strand colors ----
+    const canvasRect = canvas.getBoundingClientRect();
+    const sampleX = canvasRect.left + canvasRect.width / 2;
+    const samples = canvasLuminanceRef.current;
+
+    for (let i = 0; i < BG_SAMPLE_POINTS; i++) {
+      const t = i / (BG_SAMPLE_POINTS - 1);
+      const sampleY = canvasRect.top + t * canvasRect.height;
+      samples[i] = sampleBgLuminanceAt(sampleX, sampleY, skipSet);
+    }
+  }, []);
+
   // ---- Canvas resize handler ----
   const handleResize = useCallback(() => {
     const canvas = canvasRef.current;
@@ -141,12 +234,11 @@ export function SpiderWebScrollbar() {
       ctx.scale(dpr, dpr);
     }
 
-    // Regenerate knot positions for new height
     const rand = seededRandom(42);
     knotsRef.current = generateKnots(h, rand);
   }, []);
 
-  // ---- Draw the organic silk web ----
+  // ---- Draw the organic silk web (with per-segment adaptive colors) ----
   const drawWeb = useCallback((
     ctx: CanvasRenderingContext2D,
     w: number,
@@ -156,51 +248,47 @@ export function SpiderWebScrollbar() {
   ) => {
     const cx = w / 2;
     const knots = knotsRef.current;
-
-    // Resolve theme-aware colors
-    const sidebar = containerRef.current;
-    const styles = sidebar ? getComputedStyle(sidebar) : null;
-    const strandColor = styles?.getPropertyValue('--web-strand-color').trim() || 'rgba(0,0,0,0.55)';
-    const strandColorLight = styles?.getPropertyValue('--web-strand-color-light').trim() || 'rgba(0,0,0,0.2)';
-    const glowColor = styles?.getPropertyValue('--spider-glow').trim() || 'rgba(180,0,0,0.6)';
+    const lumSamples = canvasLuminanceRef.current;
 
     ctx.clearRect(0, 0, w, h);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // ---- Draw each individual silk strand ----
+    // ---- Helper: get colors at a given canvas Y ----
+    const getColorsAtY = (y: number): { main: string; light: string; glow: string } => {
+      const lum = getLuminanceAtY(y, lumSamples, h);
+      const isDark = lum < DARK_BG_THRESHOLD;
+      return {
+        main: isDark ? STRAND_LIGHT_ON_DARK : STRAND_DARK_ON_LIGHT,
+        light: isDark ? STRAND_LIGHT_ON_DARK_THIN : STRAND_DARK_ON_LIGHT_THIN,
+        glow: isDark ? GLOW_ON_DARK : GLOW_ON_LIGHT,
+      };
+    };
+
+    // ---- Individual silk strands (drawn per-segment for color adaptation) ----
     for (let s = 0; s < NUM_STRANDS; s++) {
       const strandSeed = 100 + s * 73.7;
       const phaseOffset = (s / NUM_STRANDS) * Math.PI * 2;
-
-      // Alternate strand opacity for depth
       const isMainStrand = s < 2;
-      ctx.strokeStyle = isMainStrand ? strandColor : strandColorLight;
-      ctx.lineWidth = isMainStrand ? 1.2 : 0.7;
 
-      ctx.beginPath();
+      let prevX = 0;
+      let prevY = 0;
 
       for (let y = 0; y <= h; y += SEGMENT_STEP) {
         const spread = spreadAtY(y, knots);
 
-        // Base horizontal offset: sinusoidal twist around center
         const thinOffset = smoothNoise(y, strandSeed, 0.015) * STRAND_SPREAD_THIN;
         const knotOffset = smoothNoise(y, strandSeed + 50, 0.06) * STRAND_SPREAD_KNOT;
-
-        // Blend between thin and knot offset based on spread factor
         const baseX = lerp(thinOffset, knotOffset, spread);
 
-        // Ambient animation: gentle sway
         const sway = Math.sin(time * 0.8 + y * 0.008 + phaseOffset) * (1 + spread * 3) * 0.6;
 
-        // Extra tangles at knots: sharp crossings
         let tangleX = 0;
         if (spread > 0.3) {
           tangleX = Math.sin(y * 0.18 + strandSeed) * spread * 6 *
             Math.sin(time * 0.5 + strandSeed);
         }
 
-        // Tension pull toward spider position
         const distToSpider = Math.abs(y - spiderY);
         const tensionPull = distToSpider < 40
           ? (1 - distToSpider / 40) * 3 * Math.sin(phaseOffset)
@@ -208,32 +296,37 @@ export function SpiderWebScrollbar() {
 
         const x = cx + baseX + sway + tangleX + tensionPull;
 
-        if (y === 0) {
-          ctx.moveTo(x, y);
-        } else {
+        if (y > 0) {
+          // Pick color based on background at this Y
+          const colors = getColorsAtY(y);
+          ctx.beginPath();
+          ctx.strokeStyle = isMainStrand ? colors.main : colors.light;
+          ctx.lineWidth = isMainStrand ? 1.2 : 0.7;
+          ctx.moveTo(prevX, prevY);
           ctx.lineTo(x, y);
+          ctx.stroke();
         }
-      }
 
-      ctx.stroke();
+        prevX = x;
+        prevY = y;
+      }
     }
 
-    // ---- Extra cross-weave strands at knot clusters ----
+    // ---- Cross-weave strands at knot clusters ----
     for (const knot of knots) {
       const numCrossings = Math.floor(2 + knot.intensity * 4);
       for (let c = 0; c < numCrossings; c++) {
         const crossSeed = knot.y * 17 + c * 31;
         const crossY = knot.y - knot.height * 0.4 + (c / numCrossings) * knot.height * 0.8;
 
-        // Short diagonal crossing strand
         const startX = cx + smoothNoise(crossY, crossSeed, 0.1) * STRAND_SPREAD_KNOT * 0.8;
         const endX = cx + smoothNoise(crossY + 15, crossSeed + 20, 0.1) * STRAND_SPREAD_KNOT * 0.8;
         const midX = cx + smoothNoise(crossY + 7, crossSeed + 40, 0.15) * STRAND_SPREAD_KNOT * 1.2;
-
         const crossSway = Math.sin(time * 0.6 + crossSeed) * 1.5;
 
+        const colors = getColorsAtY(crossY);
         ctx.beginPath();
-        ctx.strokeStyle = strandColorLight;
+        ctx.strokeStyle = colors.light;
         ctx.lineWidth = 0.5;
         ctx.moveTo(startX + crossSway, crossY);
         ctx.quadraticCurveTo(midX + crossSway, crossY + 8, endX + crossSway, crossY + 16);
@@ -241,7 +334,7 @@ export function SpiderWebScrollbar() {
       }
     }
 
-    // ---- Fraying wisps at knots (loose thread ends) ----
+    // ---- Fraying wisps at knots ----
     for (const knot of knots) {
       const numWisps = Math.floor(1 + knot.intensity * 3);
       for (let f = 0; f < numWisps; f++) {
@@ -251,11 +344,11 @@ export function SpiderWebScrollbar() {
         const wispDir = ((f % 2) * 2 - 1);
         const wispEndX = wispStartX + wispDir * (6 + knot.intensity * 10);
         const wispEndY = wispY + 5 + knot.intensity * 8;
-
         const wispSway = Math.sin(time * 1.2 + wispSeed) * 2;
 
+        const colors = getColorsAtY(wispY);
         ctx.beginPath();
-        ctx.strokeStyle = strandColorLight;
+        ctx.strokeStyle = colors.light;
         ctx.lineWidth = 0.4;
         ctx.moveTo(wispStartX, wispY);
         ctx.quadraticCurveTo(
@@ -269,7 +362,8 @@ export function SpiderWebScrollbar() {
     }
 
     // ---- Scroll indicator spider ----
-    drawSpider(ctx, cx, spiderY, time, glowColor, strandColor);
+    const spiderColors = getColorsAtY(spiderY);
+    drawSpider(ctx, cx, spiderY, time, spiderColors.glow, spiderColors.main);
   }, []);
 
   // ---- Draw the spider indicator ----
@@ -286,20 +380,17 @@ export function SpiderWebScrollbar() {
     ctx.shadowColor = glowColor;
     ctx.shadowBlur = 10;
 
-    // Body
     ctx.beginPath();
     ctx.fillStyle = strandColor;
     ctx.ellipse(x, y, r * 0.6, r * 0.9, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Head
     ctx.beginPath();
     ctx.ellipse(x, y - r * 1.0, r * 0.38, r * 0.38, 0, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.restore();
 
-    // Legs (4 pairs)
     ctx.strokeStyle = strandColor;
     ctx.lineWidth = 0.8;
     const legAngles = [0.3, 0.75, 1.2, 1.7];
@@ -307,7 +398,6 @@ export function SpiderWebScrollbar() {
       const wiggle = Math.sin(time * 2.5 + angle * 3) * 0.12;
       const a = angle + wiggle;
 
-      // Left
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.quadraticCurveTo(
@@ -318,7 +408,6 @@ export function SpiderWebScrollbar() {
       );
       ctx.stroke();
 
-      // Right
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.quadraticCurveTo(
@@ -330,7 +419,6 @@ export function SpiderWebScrollbar() {
       ctx.stroke();
     }
 
-    // Red hourglass marking
     ctx.fillStyle = glowColor;
     ctx.beginPath();
     ctx.moveTo(x, y - r * 0.25);
@@ -376,6 +464,12 @@ export function SpiderWebScrollbar() {
       const margin = SPIDER_RADIUS + 2;
       const spiderY = margin + displayProgressRef.current * (h - margin * 2);
 
+      // Throttled background sampling (every 200ms)
+      if (now - lastBgSampleRef.current > BG_SAMPLE_INTERVAL_MS) {
+        lastBgSampleRef.current = now;
+        sampleBackgrounds();
+      }
+
       drawWeb(ctx, w, h, elapsed, spiderY);
 
       animFrameRef.current = requestAnimationFrame(animate);
@@ -387,7 +481,7 @@ export function SpiderWebScrollbar() {
       cancelAnimationFrame(animFrameRef.current);
       resizeObserver.disconnect();
     };
-  }, [handleResize, drawWeb]);
+  }, [handleResize, drawWeb, sampleBackgrounds]);
 
   // ---- Click-to-scroll ----
   const handleTrackClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -411,7 +505,7 @@ export function SpiderWebScrollbar() {
       aria-hidden="true"
     >
       {/* Spider-Man at top */}
-      <div className="spidey-img">
+      <div ref={spideyRef} className="spidey-img">
         <Image
           src="/images/spiderman.png"
           alt="Spider-Man"
@@ -431,7 +525,7 @@ export function SpiderWebScrollbar() {
       />
 
       {/* Gwen at bottom */}
-      <div className="gwen-img">
+      <div ref={gwenRef} className="gwen-img">
         <Image
           src="/images/gwen.png"
           alt="Spider-Gwen"

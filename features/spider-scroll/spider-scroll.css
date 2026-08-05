@@ -37,12 +37,12 @@
   pointer-events: auto;
   z-index: 2;
   filter: drop-shadow(0 0 6px var(--spider-glow));
-  transition: filter 0.3s ease;
+  transition: filter 0.4s ease;
 }
 
-/* Dark mode: invert black silhouettes → white */
-:is(.dark) .spider-scroll-sidebar .spidey-img,
-:is(.dark) .spider-scroll-sidebar .gwen-img {
+/* Auto-invert when sitting on a dark background (set by JS) */
+.spider-scroll-sidebar .spidey-img[data-on-dark="true"],
+.spider-scroll-sidebar .gwen-img[data-on-dark="true"] {
   filter: invert(1) drop-shadow(0 0 6px var(--spider-glow));
 }
 
@@ -51,8 +51,8 @@
   filter: drop-shadow(0 0 12px var(--spider-glow));
 }
 
-:is(.dark) .spider-scroll-sidebar .spidey-img:hover,
-:is(.dark) .spider-scroll-sidebar .gwen-img:hover {
+.spider-scroll-sidebar .spidey-img[data-on-dark="true"]:hover,
+.spider-scroll-sidebar .gwen-img[data-on-dark="true"]:hover {
   filter: invert(1) drop-shadow(0 0 12px var(--spider-glow));
 }
 
@@ -62,7 +62,8 @@
 }
 
 @keyframes spidey-bob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -76,7 +77,8 @@
 }
 
 @keyframes gwen-sway {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {
