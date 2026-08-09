@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLenis } from '@/hooks/useLenis';
 
 interface SignatureLoaderProps {
   onLoadingComplete?: () => void;
@@ -13,18 +14,21 @@ export function SignatureLoader({
   minimumDuration = 1350,
 }: SignatureLoaderProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
+  const lenis = useLenis();
+  const lenisRef = useRef(lenis);
+  lenisRef.current = lenis;
+
+  const onLoadingCompleteRef = useRef(onLoadingComplete);
+  onLoadingCompleteRef.current = onLoadingComplete;
 
   useEffect(() => {
-    setIsMounted(true);
-
     const hasSeenLoader =
       typeof window !== 'undefined' &&
       sessionStorage.getItem('has_seen_signature_loader');
 
     if (hasSeenLoader) {
       setIsVisible(false);
-      if (onLoadingComplete) onLoadingComplete();
+      onLoadingCompleteRef.current?.();
       return;
     }
 
@@ -36,6 +40,7 @@ export function SignatureLoader({
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    lenisRef.current?.stop();
 
     const timer = setTimeout(() => {
       setIsVisible(false);
@@ -45,19 +50,26 @@ export function SignatureLoader({
       clearTimeout(timer);
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      lenisRef.current?.start();
     };
-  }, [minimumDuration, onLoadingComplete]);
+  }, [minimumDuration]);
 
-  if (!isVisible) return null;
+  // Pause Lenis if it initializes while loader is still visible
+  useEffect(() => {
+    if (isVisible && lenis) {
+      lenis.stop();
+    }
+  }, [isVisible, lenis]);
+
+  const handleExitComplete = () => {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    lenisRef.current?.start();
+    onLoadingCompleteRef.current?.();
+  };
 
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-        if (onLoadingComplete) onLoadingComplete();
-      }}
-    >
+    <AnimatePresence onExitComplete={handleExitComplete}>
       {isVisible && (
         <motion.div
           key="signature-loader"
