@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 
-export function YearSelector() {
+function YearSelectorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentYear = new Date().getFullYear();
@@ -79,6 +79,14 @@ export function YearSelector() {
         </div>
       )}
     </div>
+  );
+}
+
+export function YearSelector() {
+  return (
+    <Suspense fallback={null}>
+      <YearSelectorContent />
+    </Suspense>
   );
 }
 

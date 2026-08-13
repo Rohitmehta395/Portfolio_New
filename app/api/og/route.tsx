@@ -2,6 +2,8 @@ import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 import { siteConfig } from '@/config/site.config';
 
+export const dynamic = 'force-dynamic';
+
 // Cache the OG images on the CDN level (and Next.js route segment level) for 24 hours.
 // This prevents regenerating the same image on every crawler hit.
 export const revalidate = 86400;

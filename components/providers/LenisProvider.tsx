@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Lenis from 'lenis';
 import { ScrollTrigger } from '@/lib/gsap/registerPlugins';
 import { LenisContext } from '@/hooks/useLenis';
@@ -54,7 +54,9 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
   return (
     <LenisContext.Provider value={lenisInstance}>
-      <HashScrollHandler />
+      <Suspense fallback={null}>
+        <HashScrollHandler />
+      </Suspense>
       {children}
     </LenisContext.Provider>
   );
