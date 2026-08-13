@@ -237,7 +237,7 @@ export const Contact2 = ({
               <div
                 className={`rounded-lg border p-4 text-sm font-medium ${
                   submitStatus.type === 'success'
-                    ? 'border-emerald-500/50 bg-emerald-950/40 text-emerald-300'
+                    ? 'border-emerald-500/50 bg-emerald-950/80 text-emerald-300'
                     : 'border-rose-500/50 bg-rose-950/40 text-rose-300'
                 }`}
               >
