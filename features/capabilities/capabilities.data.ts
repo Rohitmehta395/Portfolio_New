@@ -8,6 +8,7 @@ export interface CapabilityItem {
   description: string;
   tags: string[];
   imageSrc: string;
+  imageAlt?: string;
 }
 
 /**
@@ -17,55 +18,64 @@ export interface CapabilityItem {
  */
 export const CAPABILITIES_DATA: CapabilityItem[] = [
   {
-    id: 'enterprise-software',
+    id: 'full-stack-development',
     number: '01',
-    pillCategory: 'Enterprise Development',
-    subheading: 'SCALABILITY & ARCHITECTURE',
-    title: 'Enterprise Software',
-    ghostTitle: 'ENTERPRISE',
+    pillCategory: 'Full-Stack Development',
+    subheading: 'FULL-STACK DEVELOPMENT',
+    title: 'Full-Stack Web Applications',
+    ghostTitle: 'FULL-STACK',
     description:
-      "I build software that doesn't flinch under real traffic dashboards, internal tools, and systems that people actually depend on, not just demo well. Less about looking clean in a screenshot, more about staying solid when a few thousand people hit it at once.",
-    tags: ['Scalable', 'Secure', 'High-Performance', 'Reliable'],
+      'I build complete web applications from the interface users interact with to the backend systems that power them. I focus on clean architecture, reliable APIs, authentication, and practical features that work together smoothly.',
+    tags: ['React.js', 'Node.js', 'MongoDB', 'REST APIs'],
     imageSrc:
-      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
+    imageAlt:
+      'Full-stack software development code editor interface on dark screen',
   },
   {
-    id: 'web-design-app',
+    id: 'web-development',
     number: '02',
     pillCategory: 'Web Development',
-    subheading: 'WEB PRESENCE & INTERFACE',
-    title: 'Website Design & Application',
-    ghostTitle: 'INTERACTIVE',
+    subheading: 'WEB DEVELOPMENT',
+    title: 'Modern Website Development',
+    ghostTitle: 'WEB DEV',
     description:
-      'Your website is the first conversation you have with a stranger. I make sure it says the right thing in half a second. Fast, intentional, and built to hold up past the first impression.',
-    tags: ['Intentional', 'Fast', 'Responsive', 'Memorable'],
+      'I create responsive websites that look good, feel fast, and work across different screen sizes. From reusable React components to responsive layouts, I focus on making websites simple to use and easy to maintain.',
+    tags: ['Responsive', 'React.js', 'Tailwind CSS', 'Reusable UI'],
     imageSrc:
-      'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2055&auto=format&fit=crop',
+    imageAlt:
+      'Modern responsive website design and frontend development workspace',
   },
   {
-    id: 'mobile-app',
+    id: 'backend-api-development',
     number: '03',
-    pillCategory: 'App Development',
-    subheading: 'ON DEVICE, BUILT TO LAST',
-    title: 'Mobile Application',
-    ghostTitle: 'MOBILE',
+    pillCategory: 'Backend Development',
+    subheading: 'BACKEND & API DEVELOPMENT',
+    title: 'Backend Systems & APIs',
+    ghostTitle: 'BACKEND',
     description:
-      "Apps people open every day, not once and forget. I care about the small stuff most devs skip. the notification that lands right, the tap that feels instant, the screen that doesn't jank when the network's bad.",
-    tags: ['Native Feel', 'Smooth', 'Offline-Ready', 'Instant'],
+      'I build the systems behind web applications — designing APIs, connecting databases, handling authentication, and managing application data. I care about keeping backend code structured, secure, and reliable.',
+    tags: ['Node.js', 'Express.js', 'MongoDB', 'JWT'],
     imageSrc:
-      'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop',
+    imageAlt:
+      'Backend server technology, APIs, and database infrastructure',
   },
   {
-    id: 'ux-product-research',
+    id: 'deployment-performance',
     number: '04',
-    pillCategory: 'Product Research',
-    subheading: 'RESEARCH BEFORE PIXELS',
-    title: 'UX & Product Excellence Research',
-    ghostTitle: 'EXCELLENCE',
+    pillCategory: 'Deployment & Performance',
+    subheading: 'DEPLOYMENT & PERFORMANCE',
+    title: 'Production & Deployment',
+    ghostTitle: 'DEPLOYMENT',
     description:
-      "Before I design a single screen, I want to know why someone would even open it. Good UX isn't decoration. it's the difference between a product people use once and one they come back to.",
-    tags: ['Insight-Driven', 'User-First', 'Iterative', 'Purposeful'],
+      'I take projects beyond development and get them running in the real world. I work with version control, deployment platforms, debugging, and performance improvements to make sure applications remain reliable after they go live.',
+    tags: ['Git & GitHub', 'Vercel', 'Render', 'Performance'],
     imageSrc:
-      'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop',
+    imageAlt:
+      'Cloud deployment, DevOps production infrastructure, and performance monitoring',
   },
 ];
+

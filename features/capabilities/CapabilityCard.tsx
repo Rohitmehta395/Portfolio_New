@@ -18,7 +18,7 @@ export function CapabilityCard({ capability, className = '' }: CapabilityCardPro
       <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden rounded-xl bg-neutral-900 mb-8 sm:mb-10 transition-colors">
         <Image
           src={capability.imageSrc}
-          alt={capability.title}
+          alt={capability.imageAlt || capability.title}
           fill
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover"
