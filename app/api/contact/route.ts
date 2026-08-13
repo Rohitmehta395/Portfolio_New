@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db/connect';
 import ContactMessage from '@/models/ContactMessage.model';
 import { contactSchema } from '@/lib/validations/contact.schema';
+import { sendContactNotificationEmail } from '@/lib/email';
+
 
 // Simple in-memory IP rate limiter map
 // IP -> Array of timestamp numbers
@@ -91,6 +93,14 @@ export async function POST(request: Request) {
       message,
       read: false,
     });
+
+    // 5. Send Email Notification to Admin
+    // Email sending is wrapped in try/catch internally inside sendContactNotificationEmail
+    // so an email failure won't prevent returning a success response to the user.
+    const emailResult = await sendContactNotificationEmail({ name, email, message });
+    if (!emailResult.success) {
+      console.warn(`[Email Alert Warning] Message saved to DB (ID: ${newMessage._id}), but email notification failed:`, emailResult.error);
+    }
 
     return NextResponse.json(
       {
