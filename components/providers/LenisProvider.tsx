@@ -5,6 +5,8 @@ import Lenis from 'lenis';
 import { ScrollTrigger } from '@/lib/gsap/registerPlugins';
 import { LenisContext } from '@/hooks/useLenis';
 
+import HashScrollHandler from './HashScrollHandler';
+
 interface LenisProviderProps {
   children: React.ReactNode;
 }
@@ -52,6 +54,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
   return (
     <LenisContext.Provider value={lenisInstance}>
+      <HashScrollHandler />
       {children}
     </LenisContext.Provider>
   );

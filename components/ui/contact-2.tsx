@@ -114,7 +114,7 @@ export const Contact2 = ({
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-32" id="contact">
+    <section className="py-16 md:py-24 lg:py-32 scroll-mt-16" id="contact">
       <div className="container">
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
           <div className="mx-auto flex w-full max-w-sm flex-col justify-between gap-10">

@@ -118,7 +118,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                   Interested in working together or just want to say hi?
                 </p>
                 <Link
-                  href="/contact"
+                  href="/#contact"
                   className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-foreground px-6 py-2.5 text-xs font-semibold text-foreground hover:bg-foreground hover:text-background transition-all shadow-sm"
                 >
                   <span>Get in Touch</span>
