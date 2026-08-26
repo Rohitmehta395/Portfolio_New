@@ -39,7 +39,7 @@ export function KineticHeadline() {
       </div>
 
       {/* Line 2 */}
-      <div className="flex flex-wrap md:flex-nowrap items-center justify-center mt-2 sm:mt-4 gap-y-2">
+      <div className="flex flex-wrap items-center justify-center mt-2 sm:mt-4 gap-y-2">
         <span className="hero-word inline-block mr-2 sm:mr-4">A</span>
         <InlineImageWord
           src="/images/laptop.png"
@@ -49,7 +49,8 @@ export function KineticHeadline() {
           shape="pill"
           className="w-14 h-7 min-[400px]:w-16 min-[400px]:h-8 sm:w-20 sm:h-10 md:w-32 md:h-16 lg:w-40 lg:h-20"
         />
-        <span className="hero-word inline-block whitespace-nowrap ml-2 sm:ml-4">SOFTWARE DEVELOPER</span>
+        <span className="hero-word inline-block ml-2 sm:ml-4">SOFTWARE</span>
+        <span className="hero-word inline-block ml-2 sm:ml-4">DEVELOPER</span>
       </div>
 
       {/* Line 3 */}
