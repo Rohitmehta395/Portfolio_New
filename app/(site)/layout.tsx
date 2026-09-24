@@ -1,5 +1,4 @@
-import React from "react";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Antonio } from "next/font/google";
 import LenisProvider from "@/components/providers/LenisProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SignatureLoaderWrapper } from "@/components/providers/SignatureLoaderWrapper";
@@ -19,6 +18,13 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const antonio = Antonio({
+  weight: "700",
+  subsets: ["latin"],
+  variable: "--font-poster",
+  display: "swap",
+});
+
 export default function SiteLayout({
   children,
 }: {
@@ -29,7 +35,7 @@ export default function SiteLayout({
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <SignatureLoaderWrapper>
           <div
-            className={`${inter.variable} ${outfit.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background flex flex-col transition-colors duration-300`}
+            className={`${inter.variable} ${outfit.variable} ${antonio.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background flex flex-col transition-colors duration-300`}
           >
             <Navbar />
 
