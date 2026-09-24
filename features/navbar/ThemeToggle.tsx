@@ -17,7 +17,7 @@ export function ThemeToggle() {
     return (
       <button
         type="button"
-        className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground opacity-50"
+        className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground opacity-50"
         disabled
       >
         <span className="sr-only">Toggle theme</span>
@@ -30,7 +30,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative w-10 h-10 rounded-full bg-secondary/80 hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm border border-border"
+      className="relative w-9 h-9 rounded-full bg-secondary/80 hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm border border-border"
       aria-label="Toggle theme"
     >
       <div className="relative w-5 h-5 flex items-center justify-center">

@@ -33,7 +33,7 @@ export function Navbar() {
 
           <button
             onClick={toggleMenu}
-            className="group relative z-50 flex items-center justify-center rounded-full bg-foreground px-6 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-background hover:scale-105 transition-all shadow-md focus:outline-none"
+            className="group relative z-50 flex items-center justify-center h-9 rounded-full bg-foreground px-6 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-background hover:scale-105 transition-all shadow-md focus:outline-none"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
           >
