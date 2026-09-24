@@ -102,30 +102,30 @@ export function Hero() {
       {/* Main Grid: Left Typography + Right Illustrated Portrait */}
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-4 w-full max-w-[1550px] mx-auto h-full">
         {/* Left Column: Massive Editorial Typography */}
-        <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center z-10 py-10 lg:py-0">
+        <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left justify-center z-10 py-6 lg:py-0">
 
           {/* Stacked Poster Headline with Overlapping Typography */}
-          <h1 className="font-poster uppercase select-none flex flex-col leading-[0.75] tracking-[-0.02em]">
-            <span className="hero-title-line-1 relative z-0 text-8xl sm:text-9xl md:text-[9.5rem] lg:text-[10.5rem] xl:text-[12.5rem] text-foreground transition-colors block">
+          <h1 className="font-poster uppercase select-none flex flex-col items-center lg:items-start leading-[0.75] tracking-[-0.02em]">
+            <span className="hero-title-line-1 relative z-0 text-7xl sm:text-8xl md:text-[9.5rem] lg:text-[10.5rem] xl:text-[12.5rem] text-foreground transition-colors block text-center lg:text-left">
               ROHIT
             </span>
-            <span className="hero-title-line-2 relative z-10 text-8xl sm:text-9xl md:text-[9.5rem] lg:text-[10.5rem] xl:text-[12.5rem] text-[#8B5CF6] dark:text-[#a78bfa] hover:brightness-110 transition-all block -mt-[0.22em]">
+            <span className="hero-title-line-2 relative z-10 text-7xl sm:text-8xl md:text-[9.5rem] lg:text-[10.5rem] xl:text-[12.5rem] text-[#8B5CF6] dark:text-[#a78bfa] hover:brightness-110 transition-all block -mt-[0.22em] text-center lg:text-left">
               MEHTA
             </span>
           </h1>
 
           {/* Subtitle & Tagline directly underneath matching Image 1 */}
-          <div className="hero-subtitle mt-4 sm:mt-5 max-w-xl">
-            <p className="text-xl sm:text-2xl md:text-[1.75rem] font-normal text-foreground/90 tracking-tight leading-snug">
+          <div className="hero-subtitle mt-4 sm:mt-5 max-w-xl mx-auto lg:mx-0">
+            <p className="text-base sm:text-2xl md:text-[1.75rem] font-normal text-foreground/90 tracking-tight leading-snug">
               Bringing Ideas To Life Through Creative Engineering
             </p>
-            <p className="mt-1.5 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            <p className="mt-1.5 text-xs sm:text-base text-muted-foreground leading-relaxed">
               Creative Software Developer crafting scalable full-stack applications & high-performance digital products.
             </p>
           </div>
 
           {/* Action CTAs */}
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
             <Link
               href="/works"
               className="hero-cta-btn group relative inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-foreground text-background font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-foreground/10 hover:scale-105 active:scale-95 transition-all"
@@ -157,7 +157,7 @@ export function Hero() {
         </div>
 
         {/* Right Column: Illustrated Cutout Avatar with Dynamic Brush Strokes */}
-        <div className="hero-portrait-wrap lg:col-span-6 xl:col-span-6 flex items-end justify-center lg:justify-end w-full h-full relative z-0 mt-4 lg:mt-0">
+        <div className="hero-portrait-wrap lg:col-span-6 xl:col-span-6 flex items-end justify-center lg:justify-end w-full relative z-0 -mt-6 sm:-mt-10 lg:mt-0 h-[48vh] sm:h-[55vh] lg:h-full">
           <HeroPortrait />
         </div>
       </div>

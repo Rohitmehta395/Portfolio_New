@@ -28,7 +28,7 @@ export function HeroPortrait({ className = '' }: HeroPortraitProps) {
     <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative flex flex-col items-center lg:items-end justify-end w-full h-[75vh] sm:h-[85vh] lg:h-[100dvh] select-none ${className}`}
+      className={`relative flex flex-col items-center lg:items-end justify-end w-full h-full lg:h-[100dvh] select-none ${className}`}
     >
       {/* Background Energetic Brush Strokes with Parallax */}
       <motion.div
@@ -37,7 +37,7 @@ export function HeroPortrait({ className = '' }: HeroPortraitProps) {
           y: mousePos.y * -20,
         }}
         transition={{ type: 'spring', damping: 20, stiffness: 80 }}
-        className="absolute inset-0 z-0 flex items-center justify-center lg:justify-end pointer-events-none scale-110 lg:scale-125"
+        className="absolute inset-0 z-0 flex items-center justify-center lg:justify-end pointer-events-none scale-100 sm:scale-110 lg:scale-125"
       >
         <HeroBrushStrokes />
       </motion.div>
