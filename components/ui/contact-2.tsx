@@ -114,28 +114,30 @@ export const Contact2 = ({
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 scroll-mt-16" id="contact">
-      <div className="container">
-        <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
-          <div className="mx-auto flex w-full max-w-sm flex-col justify-between gap-10">
+    <section className="w-full py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 flex justify-center items-center scroll-mt-16 overflow-hidden" id="contact">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 xl:gap-20 w-full">
+          <div className="flex w-full lg:w-5/12 flex-col justify-between gap-8 lg:gap-12">
             <div className="text-center lg:text-left">
-              <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">
+              <h2 className="mb-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
                 {title}
-              </h1>
-              <p className="text-muted-foreground">{description}</p>
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 leading-relaxed">
+                {description}
+              </p>
             </div>
-            <div className="mx-auto w-fit lg:mx-0">
-              <h3 className="mb-6 text-center text-2xl font-semibold lg:text-left">
+            <div className="w-full max-w-md mx-auto lg:mx-0 rounded-2xl border border-border/80 bg-card/40 p-6 backdrop-blur-sm shadow-sm">
+              <h3 className="mb-4 text-xl font-semibold text-foreground text-center lg:text-left">
                 Contact Details
               </h3>
-              <ul className="ml-4 list-disc space-y-2">
-                <li>
-                  <span className="font-bold">Phone: </span>
-                  {phone}
+              <ul className="space-y-3 text-sm sm:text-base">
+                <li className="flex items-center gap-2">
+                  <span className="font-semibold text-foreground">Phone:</span>
+                  <span className="text-muted-foreground">{phone}</span>
                 </li>
-                <li>
-                  <span className="font-bold">Email: </span>
-                  <a href={`mailto:${email}`} className="underline hover:text-emerald-400 transition-colors">
+                <li className="flex flex-wrap items-center gap-2">
+                  <span className="font-semibold text-foreground">Email:</span>
+                  <a href={`mailto:${email}`} className="text-[#8B5CF6] dark:text-[#a78bfa] underline hover:opacity-80 transition-opacity break-all">
                     {email}
                   </a>
                 </li>
@@ -145,7 +147,7 @@ export const Contact2 = ({
           
           <form 
             onSubmit={handleSubmit(onSubmit)} 
-            className="mx-auto flex w-full max-w-screen-md flex-col gap-6 rounded-lg border p-6 md:p-10 bg-card/50 backdrop-blur-sm"
+            className="flex w-full lg:w-7/12 max-w-2xl flex-col gap-6 rounded-2xl border border-border/80 p-6 sm:p-8 md:p-10 bg-card/60 backdrop-blur-md shadow-xl mx-auto lg:mx-0"
             noValidate
           >
             {/* Honeypot Field */}
